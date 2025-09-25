@@ -1,0 +1,23 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/forms';
+@plugin '@tailwindcss/typography';
+
+@layer base {
+  .svg-inline--fa {
+    display: inline-block;
+    height: 1em;
+    overflow: visible;
+    vertical-align: -0.125em;
+  }
+}
+
+input:focus {
+    outline: none;
+    box-shadow: none;
+}
+
+select:focus {
+    outline: none;
+    box-shadow: none;
+}
+
