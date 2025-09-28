@@ -20,3 +20,13 @@
   background-color: var(--background);
   color: var(--primary);
 }
+
+.col-text {
+  color: var(--text);
+}
+
+.col-text:hover {
+  background-color: var(--hover-primary);
+  color: var(--text);
+}
+

@@ -26,7 +26,7 @@
 	<link rel="icon" href={favicon} />
 </svelte:head>
 
-{#if page.url.pathname.startsWith('/login') || page.url.pathname.startsWith('/register')}
+{#if page.url.pathname.startsWith('/login') || page.url.pathname.startsWith('/register') || page.url.pathname.startsWith('/admin')}
 
 <div class="flex justify-center items-center h-screen">
 	{@render children?.()}
