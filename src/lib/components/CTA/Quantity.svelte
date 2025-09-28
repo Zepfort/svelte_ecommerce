@@ -8,7 +8,7 @@
   // State lokal untuk menampilkan dan mengubah
   let qty = $state(quantity);
 
-  // Subscribe ke store, agar jika store berubah (misalnya dari luar), qty ikut berubah
+  // Subscribe ke store, agar saat store berubah, qty ikut berubah
   const unsubscribe = selectedQuantity.subscribe((v) => {
     // hanya sinkronisasi jika berbeda
     if (v !== qty) {
@@ -16,7 +16,7 @@
     }
   });
 
-  // Efek: ketika qty berubah, kita sinkron ke store dan ke parent melalui bind
+  // Efek: qty berubah, sinkron ke store dan ke parent melalui bind
   $effect(() => {
     // sinkron ke store
     selectedQuantity.set(qty);

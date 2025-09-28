@@ -26,8 +26,8 @@ export const load: LayoutServerLoad = async ({ locals, url }) => {
   .select('id, name, email, role')
   .eq('id', user.id)
   .single();
-    console.log('Auth user.id:', user.id);
-    console.log('UserProfile query result:', profile, error);
+    // console.log('Auth user.id:', user.id);
+    // console.log('UserProfile query result:', profile, error);
 
     if (error) {
       console.error("Error mengambil profile:", error);

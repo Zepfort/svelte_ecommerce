@@ -11,7 +11,7 @@
 
   let { icon, class: className }: IconProps = $props();
 
-  // buat HTML ikon dari definisi ikon
+  // HTML ikon dari definisi ikon
   let iconHtml = iconRender(icon, { classes: className ? [className] : [] }).html;
 </script>
 
