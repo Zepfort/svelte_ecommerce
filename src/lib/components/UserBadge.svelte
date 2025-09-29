@@ -1,7 +1,6 @@
 <script lang="ts">
   import Icon from "@iconify/svelte";
   import Button from "./Button.svelte";
-  import type { User } from "@supabase/supabase-js";
   import { supabase } from "$lib/supabaseClient";
   import { goto } from "$app/navigation";
 

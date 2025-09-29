@@ -28,7 +28,7 @@
                         <option value="">Buku</option>
                     </select>
                     <input type="text" class="min-w-[600px] border-none rounded-r-lg outline-none" placeholder="Cari di Renzmart"/>
-                    <button class="flex items-center justify-center border-none px-2 rounded-r-lg w-16 col-primary cursor-pointer">
+                    <button class="flex items-center justify-center border-none px-2 rounded-r-lg w-16 col-bg-primary cursor-pointer">
                     <Icon icon="mdi:magnify" width={24} height={24} color="white"/>
                     </button>
                 </div>

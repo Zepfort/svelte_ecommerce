@@ -7,14 +7,16 @@
 	import { supabase } from '$lib/supabaseClient';
 	import Button from '$lib/components/Button.svelte';
 	import Icon from '@iconify/svelte';
+	import '$lib/style/utils.css';
 
 	let { data, children } = $props();
 	let { userProfile } = data;
 
-    type IconKey = 'Dashboard' | 'Product' | 'Orders' | 'Users';
+    type IconKey = 'Dashboard' | 'Categories' | 'Product' | 'Orders' | 'Users';
 
 	const iconPanel:  Record<IconKey, { icon: string; width: number; height: number }> = {
 		Dashboard: { icon: 'stash:dashboard', width: 24, height: 24 },
+		Categories: { icon: 'carbon:categories', width: 24, height: 24},
 		Product: { icon: 'icon-park-outline:ad-product', width: 24, height: 24 },
 		Orders: { icon: 'material-symbols:orders-outline', width: 24, height: 24 },
 		Users: { icon: 'ph:users', width: 24, height: 24 }
@@ -22,6 +24,7 @@
 
 	const menu:Array<{ title: string; href: string; iconKey: IconKey }> = [
 		{ title: 'Dashboard', href: '/admin/dashboard', iconKey: 'Dashboard' },
+		{ title: 'Product Categories', href: '/admin/categories', iconKey: 'Categories'},
 		{ title: 'Products', href: '/admin/products', iconKey: 'Product' },
 		{ title: 'Orders', href: '/admin/orders', iconKey: 'Orders' },
 		{ title: 'Users', href: '/admin/users', iconKey: 'Users' }
@@ -52,7 +55,7 @@
 					<li>
 						<a
 							href={item.href}
-							class="flex flex-row items-center gap-3 rounded-md px-3 py-2 transition-colors hover:bg-white/6
+							class="flex flex-row items-center gap-3 rounded-md px-3 py-2 col-bg-admin 
                             "
 						>
 							<Icon

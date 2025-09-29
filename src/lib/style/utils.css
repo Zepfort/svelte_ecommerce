@@ -2,31 +2,56 @@
   --primary: #0443F2; 
   --hover-primary : #0433C2;
   --seconder: #FF5722;
-  --text: #FAFAFA;
+  --text-white: #FAFAFA;
+  --text-black: #111827;
   --background: #FAFAFA;
+  --background-admin: #050417;
 }
 
-.col-primary {
+.col-bg-primary {
   background-color: var(--primary);
-  color: var(--text);
+  color: var(--text-white);
 }
 
-.col-primary:hover {
+.col-bg-primary:hover {
   background-color: var(--hover-primary);
-  color: var(--text);
+  color: var(--text-white);
 }
 
-.col-background {
+.col-bg-white {
   background-color: var(--background);
   color: var(--primary);
 }
 
-.col-text {
-  color: var(--text);
+.col-text-white {
+  color: var(--text-white);
 }
 
-.col-text:hover {
+.col-text-primary {
+  color: var(--primary);
+}
+
+.col-text-white:hover {
   background-color: var(--hover-primary);
-  color: var(--text);
+  color: var(--text-white);
+}
+
+.col-text-black {
+  color: var(--text-black);
+}
+
+.col-bg-admin {
+  background-color: var(--background-admin);
+  color: var(--text-white)
+}
+
+.col-bg-admin-opa {
+  background-color: rgba(17, 24, 39, 0.7);
+}
+
+.col-bg-admin:hover {
+  background-color: var(--hover-primary);
+  color: var(--text-white);
+  transition: all ease 0.15s;
 }
 
