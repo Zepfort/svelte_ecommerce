@@ -1,84 +1,164 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
+	import { enhance } from '$app/forms';
 	import { onMount } from 'svelte';
+	import { supabase } from '$lib/supabaseClient';
 	import '$lib/style/utils.css';
 
 	type Category = {
-		id: number;
+		id: string; // uuid
 		name: string;
-		parent?: string;
-		active: boolean;
-		discount?: string;
+		slug?: string | null;
+		description?: string | null;
+		parent_id?: string | null;
+		parent?: string | null; // nama parent (bukan kolom DB, untuk tampilan)
+		is_active?: boolean;
+		order_index?: number;
+		created_at?: string;
+		updated_at?: string;
 	};
 
 	let categories = $state<Category[]>([]);
 	let showModal = $state(false);
 
+	let newDescription = $state('');
+	let newSlug = $state('');
 	let newName = $state('');
 	let newParentId = $state<string | null>(null);
-	let errorMsg = $state('');
+	let newIsActive = $state(true);
+	let formError = $state<string | null>(null);
+	let saving = $state(false);
 
-	async function loadCategories() {
-		const { data, error } = await fetch('/api/categories').then((r) => r.json());
-		if (!error) {
-			categories = data;
-		}
+	function slugify(s: string) {
+		return s
+		.trim()
+		.toLowerCase()
+		.replace(/[^a-z0-9\s-]/g, '')
+		.replace(/\s+/g, '-')
+		.replace(/-+/g, '-')
 	}
 
-	async function saveCategory() {
-		errorMsg = '';
-		if (!newName.trim()) {
-			errorMsg = 'Need New Name categoriy ';
+	// load categories
+	async function loadCategories() {
+		const { data, error } = await supabase
+		.from('categories')
+		.select('id, name, parent_id, is_active, slug')
+		.order('name')
+		if (error) {
+			console.log('fethc catergories error:',  error)
 			return;
 		}
+		if (!data) {
+			categories = []
+			return;
+		}
+
+		// build map id -> name untuk resolve parent name
+		const map = Object.fromEntries(data.map((d: any) => [d.id, d]));
+
+		categories = data.map((d: any) => ({
+			id: d.id,
+			name: d.name,
+			slug: d.slug ?? null,
+			description: d.description ?? null,
+			parent_id: d.parent_id ?? null,
+			parent: d.parent_id ? (map[d.parent_id]?.name ?? d.parent_id) : null,
+			is_active: d.is_active ?? false
+		}));
 	}
 
-	//     const res = await fetch('/admin/categories', {
-	//       method: 'POST',
-	//       headers: { 'Content-Type': 'application/json' },
-	//       body: JSON.stringify({ name: newName.trim(), parent_id: newParentId })
-	//     })
-	//       .then(r => r.json());
-
-	//     if (res.error) {
-	//       errorMsg = res.error;
-	//     } else {
-	//       // sukses
-	//       showModal = false;
-	//       newName = '';
-	//       newParentId = null;
-	//       await loadCategories();
-	//     }
-	// }
-
-	onMount(() => {
-		// Dummy
-		categories = [
-			{ id: 1, name: 'Wallpapers', active: true },
-			{ id: 2, name: 'Floral', parent: 'Wallpapers', active: true },
-			{ id: 3, name: 'Geometric', parent: 'Wallpapers', active: true },
-			{ id: 4, name: 'Textured', parent: 'Wallpapers', active: true },
-			{ id: 5, name: 'Paint colors', active: true, discount: '0.0%' },
-			{ id: 6, name: 'Seasonal', parent: 'Paint colors', active: true }
-		];
-	});
-
+	onMount(loadCategories);
+	
 	function handleAddCategory() {
 		showModal = true;
-		errorMsg = '';
+		newSlug = '';
+		formError = '';
 		newName = '';
+		newDescription = '';
+		newIsActive = true;
 		newParentId = null;
 	}
 
-	function handleEdit(id: number) {
-		alert('Edit kategori id: ' + id);
+	function handleEdit(id: string) {
+		const c = categories.find((x) => x.id === id);
+		if (!c) return;
+		newName = c.name,
+		newSlug = c.slug ?? '',
+		newDescription = c.description ?? '',
+		newParentId = c.parent_id ?? null;
+		newIsActive = !!c.is_active;
+		showModal = true;
 	}
 
-	function handleDelete(id: number) {
-		if (confirm('Yakin ingin menghapus kategori ini?')) {
-			categories = categories.filter((c) => c.id !== id);
+	async function handleDelete(id: string) {
+		if (!confirm('Are you sure to delete this?')) return;
+		const { error } = await supabase.from('categories').delete().eq('id', id);
+		if (error) {
+			alert('Gagal menghapus: ' + error.message);
+		return;
 		}
+		// refresh
+		await loadCategories();
 	}
+
+	async function saveCategory() {
+		formError = '';
+		if (!newName.trim()) {
+			formError = 'Need New Name categoriy ';
+			return;
+		}
+
+		saving = true;
+
+		// Slug otomatis
+		const slugValue = newSlug?.trim() ? slugify(newSlug) : slugify(newName);
+
+		// cek uniq slug (simple client-side check)
+		const { data: existing } = await supabase
+      		.from('categories')
+      		.select('id')
+     		.eq('slug', slugValue)
+      		.limit(1)
+      		.maybeSingle();
+
+    	if (existing) {
+      	formError = 'Slug has been used, please change';
+      	saving = false;
+      	return;
+    	}
+
+		const payload = {
+      		name: newName.trim(),
+      		slug: slugValue,
+      		description: newDescription ? newDescription.trim() : null,
+      		parent_id: newParentId || null,
+      		is_active: newIsActive,
+      		order_index: 0
+		}
+
+		const { data: inserted, error } = await supabase
+      		.from('categories')
+      		.insert(payload)
+      		.select() 
+      		.single();
+
+		if (error) {
+      		console.error('insert category error', error);
+      		formError = error.message ?? 'Failed to save category';
+      		saving = false;
+      		return;
+    	}
+
+		await loadCategories();
+
+		// reset pop up
+    	showModal = false;
+    	saving = false;
+	}
+
+	
+    	
+
 </script>
 
 <section class="space-y-6">
@@ -98,53 +178,90 @@
 	</div>
 
 	<!-- Modal  -->
-
 	{#if showModal}
-		<div class=" fixed inset-0 z-50 flex items-center justify-center col-bg-admin-opa">
-			<div class="relative mx-4 w-full max-w-md rounded-lg bg-white p-6">
-				<button
-					onclick={() => (showModal = false)}
-					class="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
-				>
-					&times;
-				</button>
-				<h2 class="mb-4 text-xl col-text-black font-semibold">New Category</h2>
+		<div class="col-bg-admin-opa fixed inset-0 z-50 flex items-center justify-center">
+			<form onsubmit={saveCategory} class="w-full flex justify-center">
+				<div class="relative mx-4 w-full max-w-md rounded-lg bg-white p-6">
+					<button
+						type= "button"
+						onclick={() => (showModal = false)}
+						class="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+					>
+						&times;
+					</button>
+					<h2 class="col-text-black mb-4 text-xl font-semibold">New Category</h2>
 
-				<div class="space-y-4">
-					<div>
-						<label for="category-name" class="mb-1 block col-text-black ">Category name</label>
-						<input
-							id="category-name"
-							type="text"
-							bind:value={newName}
-							class="w-full rounded border px-3 py-2"
-							placeholder="Enter category name"
-						/>
-					</div>
-					<div>
-						<label for="parent-category-name" class="mb-1 block col-text-black">Parent Category (optional)</label>
-						<select id="parent-category-name" bind:value={newParentId} class="w-full rounded border px-3 py-2">
-							<option value="">-- Choose Parent --</option>
-							{#each categories as pc}
-								<option value={pc.id}>{pc.name}</option>
-							{/each}
-						</select>
-					</div>
-					{#if errorMsg}
-						<div class="text-sm text-red-600">{errorMsg}</div>
-					{/if}
-					<div class="mt-4 flex justify-end gap-2">
-						<button
-							onclick={() => (showModal = false)}
-							class="rounded bg-gray-200 px-4 py-2 hover:bg-gray-300">Cancel</button
-						>
-						<button
-							onclick={saveCategory}
-							class="rounded col-bg-primary px-4 py-2 text-white">Save</button
-						>
+					<div class="space-y-4">
+						<!-- Name -->
+						<div>
+							<label for="category-name" class="col-text-black mb-1 block">Category name</label>
+							<input
+								name="category-name"
+								type="text"
+								bind:value={newName}
+								class="w-full rounded border px-3 py-2"
+								placeholder="Category name"
+							/>
+						</div>
+						<!-- Slug -->
+						<div>
+							<label for="slug-name" class="col-text-black mb-1 block">Slug</label>
+							<input
+								name="slug-name"
+								type="text"
+								bind:value={newSlug}
+								class="w-full rounded border px-3 py-2"
+								placeholder="Slug-category"
+							/>
+						</div>
+						<!-- Description -->
+						<div>
+							<label for="description" class="col-text-black mb-1 block">Description</label>
+							<textarea
+								name="description"
+								bind:value={newDescription}
+								class="w-full rounded border px-3 py-2"
+								placeholder="Description (optional)"
+							></textarea>
+						</div>
+						<div>
+							<label for="parent-category-name" class="col-text-black mb-1 block"
+								>Parent Category (optional)</label
+							>
+							<select
+								name="parent-category-name"
+								bind:value={newParentId}
+								class="w-full rounded border px-3 py-2"
+							>
+								<option value="">-- Choose Parent --</option>
+								{#each categories as pc}
+									<option value={pc.id}>{pc.name}</option>
+								{/each}
+							</select>
+						</div>
+
+						{#if formError}
+							<div class="text-sm text-red-600">{formError}</div>
+						{/if}
+
+						<div class="mt-4 flex justify-end gap-2">
+							<button
+								onclick={() => (showModal = false)}
+								class="rounded bg-gray-200 px-4 py-2 hover:bg-gray-300">Cancel</button
+							>
+							<button 
+								type="submit"
+								onclick={saveCategory} 
+								class="col-bg-primary rounded px-4 py-2 text-white"
+								disabled = {saving}
+							>
+								{#if saving}Saving...{:else}Save{/if}	
+							</button
+							>
+						</div>
 					</div>
 				</div>
-			</div>
+			</form>
 		</div>
 	{/if}
 
@@ -156,12 +273,11 @@
 					<th class="px-4 py-3 text-left">Parent Category</th>
 					<th class="px-4 py-3 text-center">Move</th>
 					<th class="px-4 py-3 text-center">Active</th>
-					<th class="px-4 py-3 text-center">Discount</th>
 					<th class="px-4 py-3 text-center">Actions</th>
 				</tr>
 			</thead>
 			<tbody class="divide-y divide-gray-100">
-				{#each categories as c}
+				{#each categories as c (c.id)}
 					<tr class="transition hover:bg-gray-50">
 						<td
 							class="col-text-black cursor-pointer px-4 py-3 text-base font-medium hover:underline"
@@ -179,13 +295,12 @@
 							</div>
 						</td>
 						<td class="px-4 py-3 text-center">
-							{#if c.active}
+							{#if c.is_active}
 								<Icon icon="mdi:check" class="text-green-600" width="20" height="20" />
 							{:else}
 								<Icon icon="mdi:close" class="text-red-500" width="20" height="20" />
 							{/if}
 						</td>
-						<td class="px-4 py-3 text-center">{c.discount ?? '-'}</td>
 						<td class="px-4 py-3 text-center">
 							<div class="flex justify-center gap-2">
 								<button
