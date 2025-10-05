@@ -5,6 +5,8 @@
 	import { enhance } from '$app/forms';
 	import type { ActionResult } from '@sveltejs/kit';
 	import { invalidate, invalidateAll } from '$app/navigation';
+	import CurrencyInput from 'svelte-currency-input';
+ 
 
 	let { data } = $props();
 	let { categories } = data;
@@ -30,13 +32,13 @@
 	let errorMsg = $state('');
 	let newName = $state('');
 	let newDescription = $state('');
-	let newPrice = $state('');
+	let newPrice = $state<number>(0);
 	let newStock = $state('');
 	let newCategoryId = $state('');
 	let newImageFile: File | null = $state(null);
 	let newIsActive = $state(true);
-	let isEditing = $state(false)
-	let editId = $state('')
+	let isEditing = $state(false);
+	let editId = $state('');
 
 	// Handle insert product
 	function handleAddProduct() {
@@ -44,13 +46,13 @@
 		errorMsg = '';
 		newName = '';
 		newDescription = '';
-		newPrice = '';
+		newPrice = 0;
 		newStock = '';
 		newCategoryId = '';
 		newImageFile = null;
 		newIsActive = true;
-		isEditing = false;  // tambahkan ini
-  		editId = '';  
+		isEditing = false; // tambahkan ini
+		editId = '';
 	}
 
 	// handle edit product
@@ -60,7 +62,7 @@
 		editId = p.id;
 		newName = p.name;
 		newDescription = p.description ?? '';
-		newPrice = String(p.price);
+		newPrice = p.price;
 		newStock = String(p.stock);
 		newCategoryId = p.category_id;
 		newImageFile = null;
@@ -68,12 +70,7 @@
 		errorMsg = '';
 	}
 
-	/* helper SvelteKit */
-	function deserialize(text: string) {
-		return text ? JSON.parse(text) : { type: 'success', status: 204 };
-	}
-
-	// Handle submit product 
+	// Handle submit product
 	async function handleSubmit(event: SubmitEvent) {
 		event?.preventDefault();
 		const form = event.currentTarget as HTMLFormElement;
@@ -123,12 +120,12 @@
 				<form
 					method="POST"
 					enctype="multipart/form-data"
-					action={ isEditing ? '?/updateProduct' : '?/createProduct'}
+					action={isEditing ? '?/updateProduct' : '?/createProduct'}
 					onsubmit={handleSubmit}
 				>
-				{#if isEditing}
-					<input type="hidden" name="id" value={editId}/>
-				{/if}
+					{#if isEditing}
+						<input type="hidden" name="id" value={editId} />
+					{/if}
 					<div class="space-y-4">
 						<div>
 							<label for="product_name" class="mb-1 block text-slate-700">Product Name</label>
@@ -157,15 +154,17 @@
 						<div class="grid grid-cols-2 gap-4">
 							<div>
 								<label for="price" class="mb-1 block text-slate-700">Price</label>
-								<input
-									type="number"
+								<CurrencyInput
+									symbol="Rp"
+									symbolPosition="start"
 									id="price"
 									name="price"
 									bind:value={newPrice}
-									class="w-full rounded border px-3 py-2"
-									placeholder="0"
+									currency="IDR"
+									locale="id-ID"
+									inputClasses={{ formatted: "currencyInput__formatted" }}
 									required
-								/>
+									/>
 							</div>
 							<div>
 								<label for="stock" class="mb-1 block text-slate-700">Stock</label>
@@ -239,7 +238,6 @@
 							<button
 								type="submit"
 								class="rounded bg-blue-600 px-4 py-2 text-white hover:bg-blue-700"
-								
 							>
 								{isEditing ? 'Update' : 'Save'}
 							</button>
@@ -258,13 +256,14 @@
 
 				<div class="flex justify-end gap-2">
 					<button
+						type="button"
 						class="rounded bg-gray-200 px-4 py-2 hover:bg-gray-300"
 						onclick={() => (showModalDelete = false)}>Batal</button
 					>
 
 					<!-- trigger submit via runes -->
 					<button
-						type="button"
+						type="submit"
 						class="rounded bg-rose-500 px-4 py-2 text-white hover:bg-rose-600"
 						onclick={(e) => {
 							e.preventDefault();
@@ -318,6 +317,7 @@
 								<td class="flex items-center px-4 py-3">
 									<div class="flex justify-center gap-2">
 										<button
+											type="button"
 											onclick={() => openEditModal(p)}
 											class="rounded bg-blue-500 p-2 text-white transition hover:bg-blue-600"
 										>
@@ -338,6 +338,7 @@
 										>
 											<input type="hidden" name="id" bind:value={toDeleteId} />
 											<button
+												type="button"
 												onclick={() => {
 													toDeleteId = p.id;
 													showModalDelete = true;
@@ -361,3 +362,12 @@
 		{/key}
 	</div>
 </section>
+
+<style>
+	.currencyInput__formatted {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 0.375rem;
+  padding: 0.5rem;
+}
+</style>
