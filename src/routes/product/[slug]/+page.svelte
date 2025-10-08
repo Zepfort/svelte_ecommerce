@@ -2,19 +2,18 @@
     import type { PageData } from './$types'
     import Icon from "@iconify/svelte";
     import ProductPurchase from '$lib/components/wrapper/ProductPurchase.svelte';
-    import type { Product } from "$lib/data/products";
 
-    let { data }: { data: PageData } = $props()
-    
+    let { data }: { data: PageData } = $props();
     const { product } = data;
+
 </script>
 
 <div class="grid grid-cols-2 gap-4 container px-32 mx-auto py-8">
-    <div class="">
+    <div class=" rounded-lg">
         <img 
-            src={product.imageUrl} 
+            src={product.image_url} 
             alt={product.name} 
-            class="w-full max-h-[600px] min-h-[600px} object-cover rounded-lg mb-4" />
+            class="w-full max-h-[600px] min-h-[580px] object-cover rounded-lg mb-4" />
     </div>
     <div class="w-full pl-16">
         <h1 class="text-2xl font-bold">

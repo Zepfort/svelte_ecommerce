@@ -1,30 +1,25 @@
 <script lang="ts">
     import Icon from "@iconify/svelte";
+    import type {ProductListItem } from "$lib/types/product"
 
-    interface Product {
-        id: string;
-        name: string;
-        price: number;
-        imageUrl: string;
-        rating?: number;
-        sold?: number;
-    }
+    export let product: ProductListItem;
+    // let { product }: {product: ProductListItem} = $props()
 
-    let { products }: {products: Product} = $props()
+    console.log("ProductCard got product:", product);
 </script>
 
-<a href={`/product/${products.id}`} class="product-card my-2">
+<a href={`/product/${product.slug}`} class="product-card my-2">
     <div class="card-image-container">
-        <img src={products.imageUrl} alt={products.name} class="card-image"/>
+        <img src={product.image_url} alt={product.name} class="card-image"/>
     </div>
     <div class="p-2">
-        <h3 class="font-light text-base m=0">{products.name}</h3>
-        <p class="card-price">Rp{products.price}</p>
+        <h3 class="font-light text-base m=0">{product.name}</h3>
+        <p class="card-price">Rp{product.price}</p>
         <div class="flex py-0.5 pl-0 items-center"> 
             <Icon icon="meteocons:star-fill" width="28" height="28" />
-            <p class="text-base">{products.rating ?? 0}</p>
+            <p class="text-base">{product.rating ?? 0}</p>
             <Icon icon="mdi:dot" width="16" height="16" />
-            <p class="text-base">{products.sold ?? 0} terjual</p>
+            <p class="text-base">{product.sold ?? 0} terjual</p>
         </div>
     </div>
 </a>

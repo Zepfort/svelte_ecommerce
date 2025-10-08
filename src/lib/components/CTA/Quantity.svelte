@@ -1,6 +1,6 @@
 <script lang="ts">
   import { selectedQuantity } from '$lib/stores/selectedQuantity';
-  import type { Product } from '$lib/types/Product';
+  import type { Product } from '$lib/types/product';
   import Icon from "@iconify/svelte";
 
   let { product, quantity = $bindable(1) }: { product: Product; quantity: number } = $props();

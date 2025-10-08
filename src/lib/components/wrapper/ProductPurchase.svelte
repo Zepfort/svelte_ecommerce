@@ -12,7 +12,7 @@
 <div class="flex flex-col gap-2">
     <div class="flex flex-row items-center py-0.5 gap-6">
         <Quantity {product} {quantity} />
-        <p class="text-lg font-normal text-gray-700">Stok: <span class="text-2xl font-semibold text-gray-950">xxx</span></p>
+        <p class="text-lg font-normal text-gray-700">Stok: <span class="text-lg font-semibold text-gray-950">{product.stock}</span></p>
     </div>
     <p class="text-lg font-normal text-gray-700 py-0.5">Subtotal: <span class="text-2xl font-semibold text-gray-950">xxx</span></p>
     <AddToCartButton {product}/>

@@ -3,7 +3,7 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
   import { selectedQuantity } from '$lib/stores/selectedQuantity';
-  import type { Product } from '$lib/types/Product';
+  import type { Product } from '$lib/types/product';
 
   let { product }: { product: Product } = $props();
 

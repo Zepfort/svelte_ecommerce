@@ -1,7 +1,7 @@
 <script lang="ts">
   import { cart, type CartItem } from '$lib/stores/cart';
   import '/src/lib/style/utils.css'
-  import type { Product } from '$lib/types/Product';
+  import type { Product } from '$lib/types/product';
 
   let { product }: { product: Product } = $props();
   let loading = $state(false);
