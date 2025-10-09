@@ -2,25 +2,27 @@
   import { selectedQuantity } from '$lib/stores/selectedQuantity';
   import type { Product } from '$lib/types/product';
   import Icon from "@iconify/svelte";
+  import { createEventDispatcher, onDestroy } from 'svelte';
+
+  // deklarasikan event map: komponen ini akan mendispatch “change”
+  const dispatch = createEventDispatcher<{
+    change: { qty: number }
+  }>();
 
   let { product, quantity = $bindable(1) }: { product: Product; quantity: number } = $props();
 
-  // State lokal untuk menampilkan dan mengubah
   let qty = $state(quantity);
 
-  // Subscribe ke store, agar saat store berubah, qty ikut berubah
   const unsubscribe = selectedQuantity.subscribe((v) => {
-    // hanya sinkronisasi jika berbeda
     if (v !== qty) {
       qty = v;
     }
   });
 
-  // Efek: qty berubah, sinkron ke store dan ke parent melalui bind
   $effect(() => {
-    // sinkron ke store
     selectedQuantity.set(qty);
     quantity = qty;
+    dispatch('change', { qty });
   });
 
   function increment() {
@@ -31,8 +33,6 @@
     qty = Math.max(qty - 1, 1);
   }
 
-  // optional cleanup
-  import { onDestroy } from 'svelte';
   onDestroy(() => {
     unsubscribe();
   });

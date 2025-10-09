@@ -3,9 +3,7 @@
     import type {ProductListItem } from "$lib/types/product"
 
     export let product: ProductListItem;
-    // let { product }: {product: ProductListItem} = $props()
 
-    console.log("ProductCard got product:", product);
 </script>
 
 <a href={`/product/${product.slug}`} class="product-card my-2">
@@ -14,7 +12,7 @@
     </div>
     <div class="p-2">
         <h3 class="font-light text-base m=0">{product.name}</h3>
-        <p class="card-price">Rp{product.price}</p>
+        <p class="card-price">Rp{product.price.toLocaleString('id-ID')}</p>
         <div class="flex py-0.5 pl-0 items-center"> 
             <Icon icon="meteocons:star-fill" width="28" height="28" />
             <p class="text-base">{product.rating ?? 0}</p>

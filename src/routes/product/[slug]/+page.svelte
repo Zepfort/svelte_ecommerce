@@ -35,16 +35,19 @@
         <p class="text-lg font-semibold mt-0.5">
             <span class="font-normal">Minimal Pesan: </span> {product.min_order}
         </p>
-        <p class="text-lg font-normal mt-4 text-justify">
-            {product.description}
-        </p>
-        <div class="mt-4">
+        <div class="mt-4 border-t border-gray-200">
+            <h3 class="text-2xl font-semibold">Deskripsi</h3>
+            <p class="text-lg font-normal mt-4 text-justify">
+                {product.description}
+            </p>
+        </div>
+        <div class="mt-4 border-t border-gray-200">
             <h2 class="text-2xl font-semibold">Atur Jumlah dan Catatan</h2>
             <div class="flex mt-2 items-center-safe">
-                <ProductPurchase {data}/>
+                <ProductPurchase {product}/>
             </div>
         </div>
-        <div class="mt-4">
+        <div class="mt-4 border-t border-gray-200">
             <h2 class="text-2xl font-semibold">Pengiriman</h2>
             <div class="flex mt-2 items-center-safe">
                 <Icon icon="mdi:map-marker-outline" width="24" height="24" />
