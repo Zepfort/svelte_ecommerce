@@ -1,26 +1,16 @@
 <script lang="ts">
-  import { selectedQuantity } from '$lib/stores/selectedQuantity';
   import type { Product } from '$lib/types/product';
   import Icon from "@iconify/svelte";
   import { createEventDispatcher, onDestroy } from 'svelte';
 
-  // deklarasikan event map: komponen ini akan mendispatch “change”
   const dispatch = createEventDispatcher<{
     change: { qty: number }
   }>();
 
   let { product, quantity = $bindable(1) }: { product: Product; quantity: number } = $props();
-
   let qty = $state(quantity);
 
-  const unsubscribe = selectedQuantity.subscribe((v) => {
-    if (v !== qty) {
-      qty = v;
-    }
-  });
-
   $effect(() => {
-    selectedQuantity.set(qty);
     quantity = qty;
     dispatch('change', { qty });
   });
@@ -28,14 +18,9 @@
   function increment() {
     qty = Math.min(qty + 1, 99);
   }
-
   function decrement() {
     qty = Math.max(qty - 1, 1);
   }
-
-  onDestroy(() => {
-    unsubscribe();
-  });
 </script>
 
 <div class="flex items-center justify-center border-[1px] border-gray-300 rounded-lg h-8 w-28 select-none">

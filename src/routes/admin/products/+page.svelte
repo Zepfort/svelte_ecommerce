@@ -120,7 +120,11 @@
 					method="POST"
 					enctype="multipart/form-data"
 					action={isEditing ? '?/updateProduct' : '?/createProduct'}
-					onsubmit={handleSubmit}
+					onsubmit={(e) => {
+					e.preventDefault();          // kalau memang ingin manual
+					handleSubmit(e);             // panggil fungsi Anda
+				}}
+				use:enhance  
 				>
 					{#if isEditing}
 						<input type="hidden" name="id" value={editId} />

@@ -3,32 +3,30 @@
   import BuyButton from "../CTA/BuyButton.svelte";
   import Quantity from "../CTA/Quantity.svelte";
   import type { Product } from '$lib/types/product';
-  import { cart, updateCartItem, addToCart, loadCart } from '$lib/stores/cart';
+  import { cart, updateCartItem } from '$lib/stores/cart';
 
-  // quantity sekarang optional
   let { product, quantity = $bindable(1) }: { product: Product; quantity?: number } = $props();
   let qty = $state(quantity);
   let cartItemId: string | null = null;
 
+  let firstSync = true;
+
   cart.subscribe((items) => {
-    const it = items.find((it) => it.product_id === product.id);
-    if (it) {
-      cartItemId = it.id;
-      quantity = it.qty;
-    } else {
-      cartItemId = null;
-    }
-  });
+  const it = items.find(i => i.product_id === product.id);
+   if (it) qty = it.qty;
+    firstSync = false; // hanya sync sekali di awal
+  }
+);
 
   function handleQtyChange(event: CustomEvent<{ qty: number }>) {
     const newQty = event.detail.qty;
-    quantity = newQty;
+    qty = newQty;
     if (cartItemId) {
       updateCartItem(cartItemId, newQty);
     }
   }
 
-  let subtotal = $derived(product ? product.price * quantity : 0);
+  let subtotal = $derived(product ? product.price * qty : 0);
 </script>
 
 {#if product}
@@ -47,8 +45,8 @@
     </span>
   </p>
 
-  <AddToCartButton {product} qty={quantity} />
-  <BuyButton {product} />
+  <AddToCartButton {product} qty={qty} />
+  <BuyButton {product} qty={qty}/>
 </div>
 {:else}
 <p class="text-gray-500">Memuat produk...</p>

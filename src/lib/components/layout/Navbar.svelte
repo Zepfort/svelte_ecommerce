@@ -22,24 +22,24 @@
         <div>
             <form action="">
                 <div class="flex  gap-0 rounded-lg bg-white ">
-                    <select name="" id="" class="border-none rounded-l-lg outline-none">
+                    <select name="" id="" class="border-none rounded-l-sm outline-none">
                         <option value="">Kategori</option>
                         {#each categories as c}
                             <option value={c.id}>{c.name}</option>
                         {/each}
                     </select>
-                    <input type="text" class="min-w-[600px] border-none rounded-r-lg outline-none" placeholder="Cari di Renzmart"/>
-                    <button class="flex items-center justify-center border-none px-2 rounded-r-lg w-12 col-bg-primary cursor-pointer">
+                    <input type="text" class="min-w-[600px] border-none rounded-r-sm outline-none" placeholder="Cari di Renzmart"/>
+                    <button class="flex items-center justify-center border-none px-2 rounded-r-sm w-12 col-bg-primary cursor-pointer">
                     <Icon icon="mdi:magnify" width={24} height={24} color="white"/>
                     </button>
                 </div>
             </form>
         </div>
         <div class="flex gap-6">
-            <div class="flex justify-center items-center min-w-[40px] h-12 hover:bg-gray-700 rounded-lg " >
+            <div class="flex justify-center items-center min-w-[40px] h-12 hover:bg-gray-700 rounded-sm " >
                 <Icon icon="mingcute:notification-line" width="24" height="24" color="white"/>
             </div>
-            <div class="flex justify-center items-center min-w-[40px] h-12 rounded-lg" >
+            <div class="flex justify-center items-center min-w-[40px] h-12 rounded-sm" >
                 <CartButton/>
             </div>
         </div>

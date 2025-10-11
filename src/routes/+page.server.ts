@@ -19,11 +19,11 @@ const products = (productsRaw ?? []).map((row) => {
   return {
     id: row.id,
     name: row.name,
-    slug: row.slug,                  // sekarang row.slug ada
+    slug: row.slug,                 
     price: typeof row.price === 'number' ? row.price : parseFloat(row.price),
     image_url: row.image_url ?? '',
-    rating: row.rating ?? 0,         // jika view tidak punya rating, ini default 0
-    sold: row.sold ?? 0               // jika view tidak punya sold, default 0
+    rating: row.rating ?? 0,         
+    sold: row.sold ?? 0              
   };
 });
 

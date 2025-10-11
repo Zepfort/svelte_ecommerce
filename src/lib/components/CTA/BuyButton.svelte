@@ -1,32 +1,22 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
-  import { selectedQuantity } from '$lib/stores/selectedQuantity';
-  import { addToCart, loadCart } from '$lib/stores/cart';
+  import { cart, addToCart, loadCart, updateCartItem } from '$lib/stores/cart';
   import type { Product } from '$lib/types/product';
 
-  let { product }: { product: Product } = $props();
-  let qty = $state(1);
+  let { product, qty = $bindable(1) }: { product: Product, qty: number } = $props();
 
-  const unsubscribe = selectedQuantity.subscribe((v) => {
-    qty = v;
+  let itemId: string | null = null;
+  
+  cart.subscribe((items) => {
+    const it = items.find(i => i.product_id === product.id);
+    itemId = it?.id ?? null;
   });
 
   async function handleBuyNow() {
-    // Pastikan produk ini ada di cart (server side) agar checkout nanti konsisten
-    try {
-      await addToCart(product, qty);
-      await loadCart();
-    } catch (err) {
-      console.error('Error adding for buy now:', err);
-    }
-    // kemudian navigasi ke checkout dengan param
+    if (!product) return;
     goto(`/checkout?slug=${product.slug}&qty=${qty}`);
+    console.log('qty buy used:', qty);
   }
-
-  import { onDestroy } from 'svelte';
-  onDestroy(() => {
-    unsubscribe();
-  });
 </script>
 
 <button

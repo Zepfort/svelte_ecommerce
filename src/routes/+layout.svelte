@@ -1,11 +1,14 @@
 <script lang="ts">
 	import '../app.css';
+  import { onMount } from 'svelte';
 	import favicon from '$lib/assets/favicon.svg';
   import { supabase } from '$lib/supabaseClient'
 	import Navbar from '$lib/components/layout/Navbar.svelte';
 	import Footer from '$lib/components/layout/Footer.svelte';
 	import { page } from '$app/state';
   import { invalidate } from '$app/navigation'
+  import { cart } from '$lib/stores/cart';
+  import { loadCart } from '$lib/stores/cart';
 
   let { data, children } = $props()
   // console.log('layout data:', data);
@@ -20,6 +23,23 @@
     })
     return () => data.subscription.unsubscribe()
   })
+
+   onMount(() => {
+  const { data: listener } = supabase.auth.onAuthStateChange((event, session) => {
+    if (session?.user) {
+      loadCart();
+    } else {
+      cart.set([]);
+    }
+  });
+
+  // Jika session.user sudah ada, langsung load
+  if (session?.user) {
+    loadCart();
+  }
+
+  return () => listener?.subscription.unsubscribe();
+});
   
 </script>
 
