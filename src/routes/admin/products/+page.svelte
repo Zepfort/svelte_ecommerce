@@ -131,7 +131,7 @@
 					{/if}
 					<div class="space-y-4">
 						<div>
-							<label for="product_name" class="mb-1 block text-slate-700">Product Name</label>
+							<label for="product_name" class="mb-1 block text-slate-700">Product Name<span class="text-red-700">*</span></label>
 							<input
 								type="text"
 								id="product_name"
@@ -156,7 +156,7 @@
 
 						<div class="grid grid-cols-2 gap-4">
 							<div>
-								<label for="price" class="mb-1 block text-slate-700">Price</label>
+								<label for="price" class="mb-1 block text-slate-700">Price<span class="text-red-700">*</span></label>
 								<CurrencyInput
 									symbol="Rp"
 									symbolPosition="start"
@@ -170,7 +170,7 @@
 									/>
 							</div>
 							<div>
-								<label for="stock" class="mb-1 block text-slate-700">Stock</label>
+								<label for="stock" class="mb-1 block text-slate-700">Stock<span class="text-red-700">*</span></label>
 								<input
 									type="number"
 									id="stock"
@@ -184,7 +184,7 @@
 						</div>
 
 						<div>
-							<label for="category" class="mb-1 block text-slate-700">Category</label>
+							<label for="category" class="mb-1 block text-slate-700">Category<span class="text-red-700">*</span></label>
 							<select
 								id="category"
 								name="category_id"
@@ -200,7 +200,7 @@
 						</div>
 
 						<div>
-							<label for="image_url" class="mb-1 block text-slate-700">Image</label>
+							<label for="image_url" class="mb-1 block text-slate-700">Image<span class="text-red-700">*</span></label>
 							<input
 								id="image_url"
 								name="image"

@@ -16,7 +16,7 @@ export const PATCH: RequestHandler = async (event) => {
   const { id } = event.params;
   const body = await event.request.json();
 
-  const { name, slug, description, is_active } = body;
+  const { name, slug, description, is_active, parent_id } = body;
 
   const { error } = await supabase
     .from('categories')
@@ -24,6 +24,7 @@ export const PATCH: RequestHandler = async (event) => {
       name,
       slug,
       description,
+      parent_id: parent_id || null,
       is_active,
       updated_at: new Date().toISOString()
     })

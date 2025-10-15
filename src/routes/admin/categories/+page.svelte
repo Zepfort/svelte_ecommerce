@@ -4,6 +4,7 @@
 	import { onMount } from 'svelte';
 	import { supabase } from '$lib/supabaseClient';
 	import '$lib/style/utils.css';
+	import { SupabaseAuthClient } from '@supabase/supabase-js/dist/module/lib/SupabaseAuthClient';
 
 	type Category = {
 		id: string; // uuid
@@ -11,7 +12,7 @@
 		slug?: string | null;
 		description?: string | null;
 		parent_id?: string | null;
-		parent?: string | null; // nama parent (bukan kolom DB, untuk tampilan)
+		parent?: string | null; 
 		is_active?: boolean;
 		order_index?: number;
 		created_at?: string;
@@ -20,7 +21,19 @@
 
 	let categories = $state<Category[]>([]);
 	let showModal = $state(false);
+	let isEditMode = $state(false);
+	let editId = $state<string | null>(null);
 
+	// modal Konfirmasi Delete
+	let showDeleteModal = $state(false);
+	let selectedDeleteId = $state<string | null>(null);
+	let selectedDeleteName = $state<string | null>(null);
+	
+	// feedback Modal
+	let showFeedbackModal = $state(false);
+	let feedbackMessage = $state<string | null>(null);
+
+	// form fields state		
 	let newDescription = $state('');
 	let newSlug = $state('');
 	let newName = $state('');
@@ -38,7 +51,7 @@
 		.replace(/-+/g, '-')
 	}
 
-	// load categories
+	// load categories (READ)
 	async function loadCategories() {
 		const { data, error } = await supabase
 		.from('categories')
@@ -69,6 +82,7 @@
 
 	onMount(loadCategories);
 	
+	// Tambah Kategori (CREATE)
 	function handleAddCategory() {
 		showModal = true;
 		newSlug = '';
@@ -79,9 +93,12 @@
 		newParentId = null;
 	}
 
+	// Edit Kategori (UPDATE) SSR
 	function handleEdit(id: string) {
 		const c = categories.find((x) => x.id === id);
 		if (!c) return;
+		isEditMode = true;
+		editId = id;
 		newName = c.name,
 		newSlug = c.slug ?? '',
 		newDescription = c.description ?? '',
@@ -90,9 +107,17 @@
 		showModal = true;
 	}
 
-	async function handleDelete(id: string) {
-		if (!confirm('Are you sure to delete this?')) return;
-		const res = await fetch(`/admin/categories/${id}`, {
+	// Buka modal konfirmasi hapus
+	function confirmDelete(id: string, name: string) {
+		selectedDeleteId = id;
+		selectedDeleteName = name;
+		showDeleteModal = true;
+	}
+
+	// Hapus Kategori (DELETE) SSR
+	async function handleDeleteConfirmed() {
+		if (!selectedDeleteId) return;
+		const res = await fetch(`/admin/categories/${selectedDeleteId}`, {
 			method: 'DELETE'
 		});
 		const result = await res.json();
@@ -101,11 +126,20 @@
 			alert('Gagal menghapus: ' + result.message);
 			return;
 		}
-		alert('Kategori berhasil dhapus')
 		await loadCategories();
+		showDeleteModal = false
+
+		feedbackMessage =  `Category "${selectedDeleteName}" succesfully deleted`
+		showFeedbackModal = true;
+		setTimeout(() => {
+			showFeedbackModal = false;
+			feedbackMessage = null;
+		}, 3000);
 	}
 
+	// Simpan Kategori (INSERT)
 	async function saveCategory() {
+		event?.preventDefault();
 		formError = '';
 		if (!newName.trim()) {
 			formError = 'Need New Name categoriy ';
@@ -125,7 +159,7 @@
       		.limit(1)
       		.maybeSingle();
 
-    	if (existing) {
+    	if (existing && (!isEditMode || existing.id !== editId)) {
       	formError = 'Slug has been used, please change';
       	saving = false;
       	return;
@@ -140,27 +174,53 @@
       		order_index: 0
 		}
 
-		const { data: inserted, error } = await supabase
-      		.from('categories')
-      		.insert(payload)
-      		.select() 
-      		.single();
+		let res, result;
 
-		if (error) {
-      		console.error('insert category error', error);
-      		formError = error.message ?? 'Failed to save category';
-      		saving = false;
-      		return;
-    	}
+		if(isEditMode && editId) {
+			//update
+			res = await fetch(`/admin/categories/${editId}`, {
+				method: 'PATCH',
+				headers: { 'Content-Type' : 'application/json' },
+				body: JSON.stringify(payload)
+			});
+
+			result = await res.json();
+			if(!res.ok) {
+				formError = result?.message || 'Failed to update category';
+				saving = false;
+				return;
+			}	
+
+			feedbackMessage = `Category "${newName}" succesfully updated`;
+			showFeedbackModal = true;
+			setTimeout(() => {
+				showFeedbackModal = false;
+				feedbackMessage = null;
+			}, 3000); 
+		} else {
+			const { error } = await supabase.from('categories').insert(payload);
+				if (error) {
+				console.error('insert category error', error);
+				formError = error.message ?? 'Failed to save category';
+				saving = false;
+				return;
+			} 
+			
+			feedbackMessage = `Category "${newName}" succesfully created`
+			showFeedbackModal = true;
+			setTimeout(() => {
+				showFeedbackModal = false;
+				feedbackMessage = null;
+			}, 3000
+			)
+
+		}
 
 		await loadCategories();
-
-		// reset pop up
-    	showModal = false;
-    	saving = false;
-	}
-
+		showModal = false;
+		saving = false
 	
+	}
 </script>
 
 <section class="space-y-6">
@@ -179,7 +239,7 @@
 		</button>
 	</div>
 
-	<!-- Modal  -->
+	<!-- Modal Create/Update  -->
 	{#if showModal}
 		<div class="col-bg-admin-opa fixed inset-0 z-50 flex items-center justify-center">
 			<form onsubmit={saveCategory} class="w-full flex justify-center">
@@ -191,12 +251,14 @@
 					>
 						&times;
 					</button>
-					<h2 class="col-text-black mb-4 text-xl font-semibold">New Category</h2>
+					<h2 class="col-text-black mb-4 text-xl font-semibold">
+						{isEditMode ? 'Edit Category' : 'New Category'}
+					</h2>
 
 					<div class="space-y-4">
 						<!-- Name -->
 						<div>
-							<label for="category-name" class="col-text-black mb-1 block">Category name</label>
+							<label for="category-name" class="col-text-black mb-1 block">Category name<span class="text-red-700">*</span></label>
 							<input
 								name="category-name"
 								type="text"
@@ -207,7 +269,7 @@
 						</div>
 						<!-- Slug -->
 						<div>
-							<label for="slug-name" class="col-text-black mb-1 block">Slug</label>
+							<label for="slug-name" class="col-text-black mb-1 block">Slug<span class="text-red-700">*</span></label>
 							<input
 								name="slug-name"
 								type="text"
@@ -257,7 +319,13 @@
 								class="col-bg-primary rounded px-4 py-2 text-white"
 								disabled = {saving}
 							>
-								{#if saving}Saving...{:else}Save{/if}	
+								{#if saving}
+									Saving...
+								{:else if isEditMode == true}
+									Update
+								{:else}
+									Save
+								{/if}	
 							</button
 							>
 						</div>
@@ -266,6 +334,50 @@
 			</form>
 		</div>
 	{/if}
+
+	<!-- Modal Konfirmasi Hapus -->
+	 {#if showDeleteModal}
+		<div class="col-bg-admin-opa fixed inset-0 z-50 flex items-center justify-center">
+			<div class="bg-white rounded-lg p-6 w-[400px] shadow-lg">
+				<h2 class="text-lg font-semibold mb-2">Hapus Kategori</h2>
+				<p class="text-gray-600 mb-4">
+					Tindakan ini tidak dapat dibatalkan.<br />
+					Yakin ingin menghapus kategori
+					<span class="font-semibold text-red-600">{selectedDeleteName}</span>?
+				</p>
+				<div class="flex justify-end gap-3">
+					<button
+						class="bg-gray-200 text-gray-800 px-4 py-2 rounded hover:bg-gray-300"
+						onclick={() => (showDeleteModal = false)}
+					>
+						Batal
+					</button>
+					<button
+						class="bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700"
+						onclick={() => handleDeleteConfirmed()}
+					>
+						Hapus
+					</button>
+				</div>
+			</div>
+		</div>
+	 {/if}
+
+	 <!-- Modal Feedback -->
+	  {#if showFeedbackModal}
+		<div class="col-bg-admin-opa fixed inset-0 z-50 flex items-center justify-center">
+			<div class="bg-white rounded-lg p-6 w-[380px] shadow-lg text-center">
+				<h2 class="text-lg font-semibold mb-2 text-green-600">Berhasil!</h2>
+				<p class="text-gray-700 mb-4">{feedbackMessage}</p>
+				<button
+					class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+					onclick={() => (showFeedbackModal = false)}
+				>
+					Oke
+				</button>
+			</div>
+		</div>
+	  {/if}
 
 	<div class="overflow-x-auto rounded-lg bg-white shadow">
 		<table class="w-full border-collapse">
@@ -312,7 +424,7 @@
 									<Icon icon="mdi:pencil" width="18" height="18" />
 								</button>
 								<button
-									onclick={() => handleDelete(c.id)}
+									onclick={() => confirmDelete(c.id, c.name)}
 									class="rounded bg-rose-500 p-2 text-white transition hover:bg-rose-600"
 								>
 									<Icon icon="mdi:trash-can" width="18" height="18" />
