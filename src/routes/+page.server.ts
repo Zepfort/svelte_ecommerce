@@ -8,6 +8,7 @@ export const load: PageServerLoad = async (event) => {
  const { data: productsRaw, error } = await supabase
   .from('products_with_category')
   .select('*')
+  .eq('is_active', true)
   .order('created_at', { ascending: false });
 
 if (error) {

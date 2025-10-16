@@ -22,11 +22,9 @@
 	};
 
 	// states
-	let toDeleteId = $state<String | null>(null);
 	let formNode = $state<HTMLFormElement>();
 	let products: ProductWithCategory[] = data.products;
 	let showModal = $state(false);
-	let showModalDelete = $state(false);
 	let errorMsg = $state('');
 	let newName = $state('');
 	let newDescription = $state('');
@@ -35,8 +33,18 @@
 	let newCategoryId = $state('');
 	let newImageFile: File | null = $state(null);
 	let newIsActive = $state(true);
+
+	// state untuk modal edit
 	let isEditing = $state(false);
 	let editId = $state('');
+
+	// state untuk modal hapus
+	let showModalDelete = $state(false);
+	let toDeleteId = $state<String | null>(null);
+
+	// state feedback
+	let showFeedbackModal = $state(false);
+	let feedbackMessage = $state<string | null>(null);
 
 	// Handle insert product
 	function handleAddProduct() {
@@ -82,6 +90,17 @@
 		if (resp.ok) {
 			showModal = false;
 			await invalidateAll();
+
+			feedbackMessage = isEditing
+				? `Product "${newName}" succesfully updated`
+				: `Product "${newName}" succesfully created`;
+			showFeedbackModal = true;
+			
+			setTimeout(() => {
+				showFeedbackModal= false;
+				feedbackMessage = null;
+			}, 3000)
+			
 		} else {
 			const result = await resp.json().catch(() => null);
 			errorMsg = result?.message ?? 'Gagal Menyimpan Produk';
@@ -123,7 +142,6 @@
 						e.preventDefault();
 						handleSubmit(e);
 					}}
-					
 				>
 					{#if isEditing}
 						<input type="hidden" name="id" value={editId} />
@@ -166,8 +184,8 @@
 									currency="IDR"
 									locale="id-ID"
 									inputClasses={{ formatted: 'currencyInput__formatted' }}
-									/>
-									<input type="hidden" name="price" value={newPrice} />
+								/>
+								<input type="hidden" name="price" value={newPrice} />
 							</div>
 							<div>
 								<label for="stock" class="mb-1 block text-slate-700"
@@ -221,6 +239,7 @@
 						</div>
 
 						<div class="flex items-center gap-2">
+							<input type="hidden" name="is_active" value="false" />
 							<input
 								id="active"
 								name="is_active"
@@ -257,6 +276,7 @@
 		</div>
 	{/if}
 
+	<!-- Modal Hapus -->
 	{#if showModalDelete}
 		<div class="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
 			<div class="w-full max-w-sm rounded-lg bg-white p-6 shadow">
@@ -282,6 +302,22 @@
 						Hapus
 					</button>
 				</div>
+			</div>
+		</div>
+	{/if}
+
+	<!-- Modal Feedback -->
+	{#if showFeedbackModal}
+		<div class="col-bg-admin-opa fixed inset-0 z-50 flex items-center justify-center">
+			<div class="w-[380px] rounded-lg bg-white p-6 text-center shadow-lg">
+				<h2 class="mb-2 text-lg font-semibold text-green-600">Berhasil!</h2>
+				<p class="mb-4 text-gray-700">{feedbackMessage}</p>
+				<button
+					class="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
+					onclick={() => (showFeedbackModal = false)}
+				>
+					Oke
+				</button>
 			</div>
 		</div>
 	{/if}
@@ -332,6 +368,7 @@
 										>
 											<Icon icon="mdi:pencil" width="18" height="18" />
 										</button>
+										<!-- form DELETE -->
 										<form
 											method="POST"
 											action="?/deleteProduct"
@@ -341,6 +378,13 @@
 													showModalDelete = false; // tutup modal
 													toDeleteId = null; // reset id
 													await update(); // refresh data
+													feedbackMessage = `Product successfully deleted`; // Feedback
+													showFeedbackModal = true;
+													setTimeout(() => {
+														showFeedbackModal = false;
+														feedbackMessage = null;
+													}, 3000);
+
 												};
 											}}
 											bind:this={formNode}

@@ -35,13 +35,12 @@ export const actions: Actions = {
   createProduct: async (event) => {
     const supabase = createSupabaseServerClient(event);
     const fd = await event.request.formData();
-
     const name = String(fd.get('name') ?? '').trim();
     const description = String(fd.get('description') ?? '').trim();
     const price = Number(fd.get('price')) || 0;
     const stock = Number(fd.get('stock')) || 0;
     const category_id = String(fd.get('category_id') ?? '');
-    const is_active = fd.get('is_active') === 'true';
+    const is_active = fd.getAll('is_active').includes('true')
     const image = fd.get('image') as File | null;
 
     // Validasi awal
@@ -108,12 +107,13 @@ export const actions: Actions = {
     if (!id) return fail(400, { message: 'ID produk diperlukan' });
 
     // opsional: bersihkan file storage
-    const { data: prod } = await supabase
+    const { data: prod, error: fetchErr } = await supabase
       .from('products')
       .select('image_url')
       .eq('id', id)
       .single();
 
+      console.error('Existing product before update/delete:', prod, fetchErr);
     if (prod?.image_url) {
       const path = prod.image_url.split('/').pop()!;
       await supabase.storage.from('product-images').remove([path]);
@@ -139,7 +139,7 @@ export const actions: Actions = {
   const price = Number(fd.get('price')) || 0;
   const stock = Number(fd.get('stock')) || 0;
   const category_id = String(fd.get('category_id') ?? '');
-  const is_active = fd.get('is_active') === 'true';
+  const is_active = fd.getAll('is_active').includes('true')
   const image = fd.get('image') as File | null;
 
   console.error('Parsed payload:', { name, price, stock, category_id, is_active, image });
@@ -201,11 +201,12 @@ const updates: ProductUpdate = {
   console.error('Before update query, updates =', updates);
 
   // lakukan update
-  const { error} = await supabase
+  const { data: existingProd, error} = await supabase
     .from('products')
     .update(updates)
     .eq('id', id)
     .select(); 
+  console.error('Existing product before update/delete:', existingProd, error);
 
   if (error) {
     console.error('UPDATE failed with error:', error.message);
