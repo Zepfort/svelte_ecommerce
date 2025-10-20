@@ -15,7 +15,7 @@ if (error) {
   console.error('Error fetching products:', error.message);
 }
 
-// Lakukan mapping
+// mapping
 const products = (productsRaw ?? []).map((row) => {
   return {
     id: row.id,
@@ -29,6 +29,6 @@ const products = (productsRaw ?? []).map((row) => {
 });
 
 return {
-  products
+  products,
 };
 };

@@ -1,7 +1,13 @@
 import type { LayoutServerLoad } from './$types';
 import { redirect } from '@sveltejs/kit';
 
-type Category = { id: string; name: string };
+type Category = {
+  id: string;
+  name: string;
+  slug: string;
+  parent_id: string | null;
+  order_index: number | null;
+};
 
 export const load: LayoutServerLoad = async ({ locals, url }) => {
   const { supabase, safeGetSession } = locals;
@@ -38,15 +44,18 @@ export const load: LayoutServerLoad = async ({ locals, url }) => {
   }
 
   // query untuk categories 
-  let categories: Category[] = [];
+  let mainCategories: Category[] = [];
+  let subCategories: Category[] = [];
   try {
     const { data: catData, error: catError } = await supabase
       .from('categories')
-      .select('id, name')
+      .select('id, name, slug, parent_id, order_index')
       .order('name', { ascending: true });
 
     if (catError) throw catError;
-    categories = catData ?? [];
+
+    mainCategories = catData?.filter((c) => c.parent_id === null) ?? [];
+    subCategories = catData?.filter((c) => c.parent_id !== null) ?? [];
   } catch (err) {
     console.error('Error mengambil categories:', err);
   }
@@ -55,6 +64,7 @@ export const load: LayoutServerLoad = async ({ locals, url }) => {
     session,
     user,
     userProfile,
-    categories 
+    mainCategories: JSON.parse(JSON.stringify(mainCategories)),
+  subCategories: JSON.parse(JSON.stringify(subCategories))
   };
 };

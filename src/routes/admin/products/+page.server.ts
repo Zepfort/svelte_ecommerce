@@ -102,18 +102,16 @@ export const actions: Actions = {
     const supabase = createSupabaseServerClient(event);
     const fd = await event.request.formData();
     const id = fd.get('id');
-    // console.log('[DELETE] id dari form =', id); 
-
+    
     if (!id) return fail(400, { message: 'ID produk diperlukan' });
 
     // opsional: bersihkan file storage
-    const { data: prod, error: fetchErr } = await supabase
+    const { data: prod } = await supabase
       .from('products')
       .select('image_url')
       .eq('id', id)
       .single();
 
-      console.error('Existing product before update/delete:', prod, fetchErr);
     if (prod?.image_url) {
       const path = prod.image_url.split('/').pop()!;
       await supabase.storage.from('product-images').remove([path]);
@@ -141,8 +139,6 @@ export const actions: Actions = {
   const category_id = String(fd.get('category_id') ?? '');
   const is_active = fd.getAll('is_active').includes('true')
   const image = fd.get('image') as File | null;
-
-  console.error('Parsed payload:', { name, price, stock, category_id, is_active, image });
 
   if (!id) {
     return fail(400, { message: 'ID produk wajib disertakan' });
@@ -198,15 +194,12 @@ const updates: ProductUpdate = {
     updates.image_url = publicUrlData.publicUrl;
   }
 
-  console.error('Before update query, updates =', updates);
-
   // lakukan update
-  const { data: existingProd, error} = await supabase
+  const { error} = await supabase
     .from('products')
     .update(updates)
     .eq('id', id)
     .select(); 
-  console.error('Existing product before update/delete:', existingProd, error);
 
   if (error) {
     console.error('UPDATE failed with error:', error.message);
