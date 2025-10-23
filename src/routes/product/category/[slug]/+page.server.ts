@@ -1,4 +1,3 @@
-// src/routes/product/category/[slug]/+page.server.ts
 import { createSupabaseServerClient } from '$lib/supabaseServer';
 import { error } from '@sveltejs/kit';
 
@@ -28,7 +27,6 @@ export const load = async (event) => {
     console.error('Error fetching subcategories:', subcatError.message);
   }
 
-  // Kumpulkan semua id (kategori utama + subkategori)
   const categoryIds = [category.id, ...(subcategories?.map((sc) => sc.id) ?? [])];
 
   // Ambil semua produk dari kategori utama dan subkategori-nya

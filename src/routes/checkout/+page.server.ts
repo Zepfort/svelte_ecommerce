@@ -1,6 +1,4 @@
-// src/routes/checkout/+page.server.ts
-
-import { error, redirect } from '@sveltejs/kit';
+import { error } from '@sveltejs/kit';
 import { createSupabaseServerClient } from '$lib/supabaseServer';
 import type { PageServerLoad } from './$types';
 import type { CartItem } from '$lib/stores/cart';
