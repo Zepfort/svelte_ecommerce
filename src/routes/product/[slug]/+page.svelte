@@ -30,7 +30,7 @@
             <!-- <button class="border-b-4 font-medium py-2 px-8">Spesifikasi</button> -->
         </div>
         <p class="text-lg font-semibold mt-2">
-            <span class="font-normal">Kondisi:</span>  {product.condition}
+            <span class="font-normal">Kondisi:</span> Baru  {product.condition}
         </p>
         <p class="text-lg font-semibold mt-0.5">
             <span class="font-normal">Minimal Pesan: </span> {product.min_order}
@@ -45,13 +45,6 @@
             <h2 class="text-2xl font-semibold">Atur Jumlah dan Catatan</h2>
             <div class="flex mt-2 items-center-safe">
                 <ProductPurchase {product}/>
-            </div>
-        </div>
-        <div class="mt-4 border-t border-gray-200">
-            <h2 class="text-2xl font-semibold">Pengiriman</h2>
-            <div class="flex mt-2 items-center-safe">
-                <Icon icon="mdi:map-marker-outline" width="24" height="24" />
-                <p class="font-semibold text-lg pl-2"> <span class="font-normal">Dikirim dari</span> {product.from}</p>
             </div>
         </div>
     </div>

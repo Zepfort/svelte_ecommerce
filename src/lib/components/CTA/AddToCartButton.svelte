@@ -3,6 +3,9 @@
   import '/src/lib/style/utils.css';
   import { addToCart, loadCart } from '$lib/stores/cart';
   import type { Product } from '$lib/types/product';
+	import { createEventDispatcher } from 'svelte';
+
+  const dispact = createEventDispatcher<{ added: { addedItemId?: string } }>();
 
   let { product, qty = 1 }: { product: Product; qty?: number } = $props();
   let loading = $state(false);
@@ -11,7 +14,9 @@
     if (!product) return;
     loading = true;
     try {
-      await addToCart(product.id, qty);
+      const data = await addToCart(product.id, qty);
+      const addedItemId = data?.addedItemId ?? null;
+      dispact('added', { addedItemId})
     } catch (e) {
       console.error('Gagal menambahkan ke keranjang:', e);
     } finally {

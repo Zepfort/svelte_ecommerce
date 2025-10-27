@@ -4,6 +4,7 @@
   import Quantity from "../CTA/Quantity.svelte";
   import type { Product } from '$lib/types/product';
   import { cart, updateCartItem } from '$lib/stores/cart';
+  import { onDestroy } from "svelte";
 
   let { product, quantity = $bindable(1) }: { product: Product; quantity?: number } = $props();
   let qty = $state(quantity);
@@ -11,19 +12,26 @@
 
   let firstSync = true;
 
-  cart.subscribe((items) => {
-  const it = items.find(i => i.product_id === product.id);
-   if (it) qty = it.qty;
-    firstSync = false; // hanya sync sekali di awal
-  }
-);
+  let unsubscribe = cart.subscribe((items) => {
+    if (firstSync) {
+      const it = items.find(i => i.product_id === product.id);
+      if (it) {
+        qty = it.qty;
+        cartItemId = it.id;
+      }
+      firstSync = false
+    }
+  });
+
+  onDestroy(() => unsubscribe())
 
   function handleQtyChange(event: CustomEvent<{ qty: number }>) {
     const newQty = event.detail.qty;
     qty = newQty;
-    if (cartItemId) {
-      updateCartItem(cartItemId, newQty);
-    }
+  }
+
+   function handleAddedToCart(e: CustomEvent<{ items?: any[], addedItemId?: string }>) {
+    if (e.detail?.addedItemId) cartItemId = e.detail.addedItemId;
   }
 
   let subtotal = $derived(product ? product.price * qty : 0);
@@ -45,7 +53,7 @@
     </span>
   </p>
 
-  <AddToCartButton {product} qty={qty} />
+  <AddToCartButton {product} qty={qty} on:added={handleAddedToCart}/>
   <BuyButton {product} qty={qty}/>
 </div>
 {:else}
