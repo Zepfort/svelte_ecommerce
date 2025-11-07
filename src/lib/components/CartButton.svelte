@@ -105,7 +105,7 @@ function handleCheckout() {
     >
     </button>
     
-    <!-- pop up panel -->
+    <!-- modal panel -->
     <div 
       class="fixed sm:absolute sm:-right-40 bottom-0 sm:bottom-auto
              w-full sm:w-[28rem] md:w-[38rem] 

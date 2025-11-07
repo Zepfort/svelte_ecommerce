@@ -7,7 +7,6 @@ export const load: PageServerLoad = async (event) => {
   const { params } = event;
   const slug = params.slug
 
-  // buat client Supabase server-side
   const supabase = createSupabaseServerClient(event);
 
   // query produk berdasarkan slug
@@ -23,11 +22,10 @@ export const load: PageServerLoad = async (event) => {
   }
 
   if (!data) {
-    // jika tidak ada produk dengan slug tersebut
     throw error(404, 'Produk tidak ditemukan');
   }
 
-  // data ada — map ke shape yang diharapkan oleh frontend (jika perlu transformasi)
+  // data ada — map ke shape yang diharapkan oleh frontend 
   const product: Product = {
     id: data.id,
     name: data.name,

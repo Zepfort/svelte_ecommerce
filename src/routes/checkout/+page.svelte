@@ -1,6 +1,7 @@
 <script lang="ts">
   import Icon from '@iconify/svelte';
   import { page } from '$app/state';
+	import { goto } from '$app/navigation';
 
   type ItemType = {
     id: string;
@@ -22,6 +23,18 @@
       ? items.reduce((sum, it) => sum + it.price * it.qty, 0)
       : total
   );
+
+  let slug = page.url.searchParams.get('slug');
+let qty = page.url.searchParams.get('qty');
+
+function redirectToPayment(){
+  if (slug && qty) {
+    goto(`/checkout/failed?slug=${encodeURIComponent(slug)}&qty=${encodeURIComponent(qty)}`);
+  } else {
+    goto(`/checkout/failed`);
+  }
+}
+
 </script>
 
 <div class="container mx-auto px-4 py-8">
@@ -78,6 +91,7 @@
           </div>
 
           <button
+            onclick={redirectToPayment}
             class="mt-6 w-full rounded-lg bg-blue-600 py-3 text-white transition hover:bg-blue-700"
           >
             Bayar Sekarang
@@ -129,7 +143,9 @@
                 <span>Rp {(Number(it.price) * it.qty).toLocaleString('id-ID')}</span>
               </div>
             </div>
-            <button class="mt-6 w-full rounded-lg bg-blue-600 py-3 text-white">
+            <button
+              onclick={redirectToPayment} 
+              class="mt-6 w-full rounded-lg bg-blue-600 py-3 text-white">
               Bayar Sekarang
             </button>
           </div>

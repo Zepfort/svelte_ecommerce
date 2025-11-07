@@ -64,7 +64,15 @@
 	<link rel="icon" href={favicon} />
 </svelte:head>
 
-{#if page.url.pathname.startsWith('/login') || page.url.pathname.startsWith('/register') || page.url.pathname.startsWith('/profile') || page.url.pathname.startsWith('/admin')}
+{#if 
+  page.url.pathname.startsWith('/login') || 
+  page.url.pathname.startsWith('/register') || 
+  page.url.pathname.startsWith('/profile') || 
+  page.url.pathname.startsWith('/admin') || 
+  page.url.pathname.startsWith('/checkout/error') ||
+  page.url.pathname.startsWith('/checkout/success') ||
+  page.url.pathname.startsWith('/checkout/failed') 
+  }
 
 <div class="flex justify-center items-center h-screen">
 	{@render children?.()}

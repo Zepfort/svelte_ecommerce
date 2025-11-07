@@ -39,7 +39,6 @@ export const load: PageServerLoad = async (event) => {
 			}
 		];
 		fromCart = false;
-		// mode dari cart
 	} else {
   // mode keranjang
   const user = event.locals.session?.user;
