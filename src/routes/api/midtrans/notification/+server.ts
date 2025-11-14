@@ -1,9 +1,7 @@
 import type { RequestHandler } from './$types';
 import { createSupabaseServerClient } from '$lib/supabaseServer';
-import { SUPABASE_SERVICE_ROLE_KEY } from '$env/static/private';
 import crypto from 'crypto';
-
-const MIDTRANS_SERVER_KEY = SUPABASE_SERVICE_ROLE_KEY;
+import { MIDTRANS_SERVER_KEY } from '$env/static/private';
 
 function verifySignature(
   orderId: string,
