@@ -143,6 +143,8 @@ export const actions: Actions = {
 			throw error(500, 'Konfigurasi Midtrans tidak lengkap');
 		}
 
+		const finishUrl = `${event.url.origin}/checkout/success?orderId=${orderNumber}`;
+
 		const response = await fetch(midtransUrl, {
 			method: 'POST',
 			headers: {
@@ -157,9 +159,9 @@ export const actions: Actions = {
 				customer_details: { email: user.email },
 				item_details: itemDetails,
 				callbacks: {
-					finish: 'https://renzmart.vercel.app/checkout/success?orderId=${orderNumber}',
-					unfinish: 'https://renzmart.vercel.app/checkout/failed',
-					error: 'https://renzmart.vercel.app/checkout/error'
+					finish: finishUrl,
+					unfinish: `${event.url.origin}/checkout/failed`,
+					error: `${event.url.origin}/checkout/error`
 				}
 			})
 		});
