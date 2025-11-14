@@ -27,7 +27,7 @@
 
 <button
   onclick={handleAddToCart}
-  class="flex items-center justify-center gap-2 rounded-md py-1.5 px-12 col-bg-primary disabled:opacity-50 cursor-pointer"
+  class="flex items-center justify-center gap-2 rounded-md py-1.5 px-12 col-bg-primary disabled:opacity-50 cursor-pointer font-semibold"
   disabled={loading}
 >
   {#if loading}

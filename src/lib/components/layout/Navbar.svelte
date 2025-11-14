@@ -46,14 +46,14 @@
 
     <!-- ===== KIRI ===== -->
       <!-- Logo -->
-      <a href="/" class="sm:hidden md:block shrink-0 text-xl font-bold text-gray-50 lg:pl-40">
+      <a href="/" class="sm:hidden md:block shrink-0 text-xl font-bold text-gray-200 lg:pl-40">
         RenzMart
       </a>
 
     <!-- Tombol Kategori : hanya muncul di lg+ -->
     <div class="flex justify-around gap-6">
       <button
-        class="hidden lg:flex shrink-0 items-center gap-2 rounded-sm bg-[#0443F2] px-3 py-1.5 text-gray-50 hover:bg-[#0433C2]"
+        class="hidden lg:flex shrink-0 items-center gap-2 rounded-sm bg-[#0443F2] px-3 py-1.5 text-gray-200 hover:bg-[#0433C2]"
         onmouseenter={handleMouseEnter}
         onmouseleave={handleMouseLeave}
         aria-label="Kategori (desktop)"
@@ -109,7 +109,7 @@
       onclick={() => showDrawer.set(false)}
     ></button>
 
-    <aside class="absolute top-0 left-0 h-full w-72 bg-gray-900 text-white shadow-2xl">
+    <aside class="absolute top-0 left-0 h-full w-72 bg-gray-900 text-gray-200 shadow-2xl">
       <div class="flex items-center justify-between p-4">
         <span class="font-semibold">Menu</span>
         <button

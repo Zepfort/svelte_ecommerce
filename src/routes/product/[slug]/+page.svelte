@@ -8,7 +8,6 @@
 </script>
 
 <div class="mx-auto max-w-5xl px-4 pb-8 pt-4 md:grid md:grid-cols-2 md:gap-20 md:px-6 md:py-8 lg:px-8">
-  <!-- === GAMBAR  === -->
 <div class="w-full">
   <img
     src={product.image_url}
@@ -17,12 +16,11 @@
   />
 </div>
 
-  <!-- === INFO PRODUK === -->
   <div class="md:pl-8">
     <!-- Nama + rating -->
     <h1 class="text-xl font-bold text-gray-900 md:text-2xl">{product.name}</h1>
-    <p class="mt-1 text-sm text-gray-600 md:text-base">
-      Terjual {product.sold}+ • {product.rating} ⭐ (500+ rating)
+    <p class="mt-1 text-sm text-gray-600 md:text-base flex flex-row">
+      Terjual {product.sold}+ • {product.rating}  <Icon icon="meteocons:star-fill" class="text-yellow-400" width="24" height="24" /> (500+ rating)
     </p>
 
     <!-- Harga -->

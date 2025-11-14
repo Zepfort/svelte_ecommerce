@@ -98,12 +98,12 @@ function handleCheckout() {
 
   {#if items.length}
     <span
-      class="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-600 text-xs font-bold text-white"
+      class="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-red-600 text-xs font-bold text-gray-200"
     >
       {items.length > 99 ? '99+' : items.length}
     </span>
   {/if}
-  <span class="hidden text-sm font-semibold md:inline">
+  <span class="hidden text-sm font-semibold md:inline cursor-pointer text-gray-200">
     Keranjang
   </span>
 </button>
@@ -147,7 +147,7 @@ function handleCheckout() {
                 <img src={it.image_url} alt={it.name} class="w-14 h-14 object-cover rounded-md flex-shrink-0"/>
                 <div class="flex flex-col truncate">
                   <p class="font-medium truncate">{it.name}</p>
-                  <p class="text-sm text-gray-500">Rp Rp {(it.price ?? 0).toLocaleString('id-ID')}</p>
+                  <p class="text-sm text-gray-500">Rp {(it.price ?? 0).toLocaleString('id-ID')}</p>
                 </div>
               </div>
 

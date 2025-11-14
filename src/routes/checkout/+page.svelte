@@ -80,12 +80,12 @@
 							<span>Rp {grandTotal.toLocaleString('id-ID')}</span>
 						</div>
 					</div>
-          <form method="POST">
+          			<form method="POST">
 							<input type="hidden" name="items" value={JSON.stringify(items)} />
 							<input type="hidden" name="total" value={grandTotal} />
 							<button 
-                  class="mt-6 w-full rounded-lg bg-blue-600 py-3 text-white"
-                  type="submit">Bayar Sekarang</button>
+                  			class="mt-6 w-full rounded-lg bg-blue-600 py-3 text-white"
+                  			type="submit">Bayar Sekarang</button>
 					</form>
 					<!-- <button
 						onclick={redirectToPayment}
@@ -146,14 +146,10 @@
 							<input type="hidden" name="items" value={JSON.stringify(items)} />
 							<input type="hidden" name="total" value={grandTotal} />
 							<button 
-                  class="mt-6 w-full rounded-lg bg-blue-600 py-3 text-white"
-                  type="submit">Bayar Sekarang</button>
+                  			class="mt-6 w-full rounded-lg bg-[#0443F2] py-3 text-gray-200 hover:bg-[#0433C2] cursor-pointer"
+                  			type="submit">Bayar Sekarang</button>
 						</form>
-						<!-- <button
-              onclick={redirectToPayment} 
-              class="mt-6 w-full rounded-lg bg-blue-600 py-3 text-white">
-              Bayar Sekarang
-            </button> -->
+						
 					</div>
 				</div>
 			{/each}
