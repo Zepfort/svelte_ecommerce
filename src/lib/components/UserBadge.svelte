@@ -28,7 +28,7 @@
       </span>
     </div>
     <div class="user-dropdown">
-      <a href="/profile" class="block px-4 py-2 text-sm hover:bg-blue-700">
+      <a href="/profile/account" class="block px-4 py-2 text-sm hover:bg-blue-700">
         Profil
       </a>
       <button onclick={logout} class="block w-full px-4 py-2 text-left text-sm hover:bg-blue-700">

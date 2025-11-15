@@ -70,7 +70,7 @@
           placeholder="Cari produk"
           class="w-full rounded-l-sm border-none px-4 py-1.5 outline-none sm:flex-1"
         />
-        <button type="submit" class="bg-[#0443F2] text-gray-50 grid h-11 w-12 place-items-center rounded-r-sm cursor-pointer" aria-label="Cari">
+        <button type="submit" class="bg-[#0443F2] hover:bg-[#0433C2] text-gray-200 grid h-11 w-12 place-items-center rounded-r-sm cursor-pointer" aria-label="Cari">
           <Icon icon="mdi:magnify" width="24" height="24" color="white" />
         </button>
       </form>

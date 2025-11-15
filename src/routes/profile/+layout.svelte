@@ -33,7 +33,7 @@
 		</div>
 
 		<nav class="flex-1 space-y-2 p-4">
-			<a
+			<!-- <a
 				href="/profile"
 				class="flex items-center gap-3 rounded-sm px-4 py-2 leading-none transition col-bg-primary"
 			>
@@ -43,20 +43,6 @@
 					inline={true} 
 					class="mr-3 align-middle inline-flex" />
 				<span class="text-center">Profile</span>
-			</a>
-
-			<!-- <a
-				href="/profile/address"
-				class="flex items-center gap-3 rounded px-4 py-2 transition hover:bg-gray-800"
-			>
-				<Icon
-					icon="mdi:map-marker-outline"
-					width="20"
-					height="20"
-					inline={true}
-					class="mr-3 align-middle inline-flex"
-				/>
-				<span>Alamat Saya</span>
 			</a> -->
 
 			<a href="/" class="flex items-center gap-3 rounded-sm px-4 py-2 transition col-bg-admin">
