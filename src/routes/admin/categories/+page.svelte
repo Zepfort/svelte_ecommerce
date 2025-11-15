@@ -224,19 +224,16 @@
 </script>
 
 <section class="space-y-6">
-	<h2 class="text-2xl font-bold text-slate-900">Product Categories</h2>
+	<h2 class="text-2xl font-bold text-slate-900 pt-16">Product Categories</h2>
 
 	<div class="mb-4 flex items-center justify-between">
 		<button
 			onclick={handleAddCategory}
-			class="col-bg-primary flex items-center gap-2 rounded-lg px-4 py-2 text-lg shadow transition"
+			class="col-bg-primary flex items-center gap-2 rounded-sm px-4 py-2 text-sm font-semibold shadow transition"
 		>
 			<Icon icon="mdi:plus" width="20" height="20" /> New Category
 		</button>
 
-		<button class="rounded-lg bg-gray-100 px-4 py-2 text-sm transition hover:bg-gray-200">
-			Sort categories alphabetically
-		</button>
 	</div>
 
 	<!-- Modal Create/Update  -->
@@ -408,11 +405,11 @@
 								</button>
 							</div>
 						</td>
-						<td class="px-4 py-3 text-center">
+						<td class="px-4 py-3 flex flex-row text-center items-center gap-4">
 							{#if c.is_active}
-								<Icon icon="mdi:check" class="text-green-600" width="20" height="20" />
+								<Icon icon="mdi:check" class="text-green-600" width="24" height="24" /><span class="text-gray-900 text-sm font-semibold">Active</span>
 							{:else}
-								<Icon icon="mdi:close" class="text-red-500" width="20" height="20" />
+								<Icon icon="mdi:close" class="text-red-500" width="24" height="24" /><span class="text-gray-900 text-sm font-semibold">Not Active</span>
 							{/if}
 						</td>
 						<td class="px-4 py-3 text-center">
@@ -437,11 +434,4 @@
 		</table>
 	</div>
 
-	<div class="mt-6 flex items-center justify-between">
-		<button
-			class="flex items-center gap-2 rounded-lg bg-gray-100 px-4 py-2 text-gray-800 transition hover:bg-gray-200"
-		>
-			<Icon icon="mdi:cog-outline" width="20" height="20" /> Manage Categories
-		</button>
-	</div>
 </section>

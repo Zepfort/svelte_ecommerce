@@ -51,7 +51,7 @@ export const actions: Actions = {
       return fail(400, { message: 'Gambar produk harus diupload' });
     }
 
-    // Buat slug sederhana
+    // slug sederhana
     const slug = name
       .toLowerCase()
       .replace(/[^a-z0-9\s-]/g, '')
@@ -105,7 +105,7 @@ export const actions: Actions = {
     
     if (!id) return fail(400, { message: 'ID produk diperlukan' });
 
-    // opsional: bersihkan file storage
+    // bersihkan file storage
     const { data: prod } = await supabase
       .from('products')
       .select('image_url')
@@ -119,11 +119,12 @@ export const actions: Actions = {
 
     const { error } = await supabase
   .from('products')
-  .delete() // tambahkan count
+  .delete() 
   .eq('id', id);
 
     if (error) return fail(500, { message: error.message });
 
+    console.error('DELETE succeeded, redirecting...');
     throw redirect(303, '/admin/products');
   },
 

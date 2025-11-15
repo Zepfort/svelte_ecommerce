@@ -109,19 +109,15 @@
 </script>
 
 <section class="space-y-6">
-	<h2 class="text-2xl font-bold text-slate-900">Products</h2>
+	<h2 class="text-2xl font-bold text-slate-900 pt-16">Products</h2>
 
 	<!-- Add Product -->
 	<div class="mb-4 flex px-0 items-center justify-between">
 		<button
 			onclick={handleAddProduct}
-			class="col-bg-primary flex items-center gap-2 rounded-lg px-8 py-2 text-lg shadow transition"
+			class="col-bg-primary flex items-center gap-2 rounded-sm px-8 py-2 text-sm font-semibold shadow transition"
 		>
 			<Icon icon="mdi:plus" width="20" height="20" /> New Product
-		</button>
-
-		<button class="rounded-lg bg-gray-100 px-4 py-2 text-sm transition hover:bg-gray-200">
-			Sort Product alphabetically
 		</button>
 	</div>
 

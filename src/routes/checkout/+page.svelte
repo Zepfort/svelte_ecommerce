@@ -53,7 +53,7 @@
 							<li class="flex items-center gap-4 rounded border p-3 shadow-sm">
 								<img src={it.image_url} alt={it.name} class="h-16 w-16 rounded-sm object-cover" />
 								<div class="flex-1">
-									<p class="font-medium">{it.name}</p>
+									<p class="font-medium text-gray-900">{it.name}</p>
 									<p class="text-sm text-gray-600">Jumlah: {it.qty}</p>
 									<p class="text-sm text-gray-600">
 										Rp {(it.price * it.qty).toLocaleString('id-ID')}
@@ -67,15 +67,15 @@
 				<!-- KANAN: ringkasan pesanan -->
 				<div class="flex h-fit flex-col justify-between rounded-lg border bg-gray-50 p-6 shadow-md">
 					<div>
-						<h3 class="mb-4 text-lg font-semibold">Ringkasan Pesanan</h3>
+						<h3 class="mb-4 text-lg font-semibold text-gray-900">Ringkasan Pesanan</h3>
 						{#each items as it (it.id)}
-							<div class="mb-2 flex justify-between text-sm">
+							<div class="mb-2 flex justify-between text-sm text-gray-900">
 								<span>{it.name} x{it.qty}</span>
-								<span>Rp {(it.price * it.qty).toLocaleString('id-ID')}</span>
+								<span class="font-semibold">Rp {(it.price * it.qty).toLocaleString('id-ID')}</span>
 							</div>
 						{/each}
 						<hr class="my-4" />
-						<div class="flex justify-between text-xl font-bold">
+						<div class="flex justify-between text-xl font-bold text-gray-900">
 							<span>Total</span>
 							<span>Rp {grandTotal.toLocaleString('id-ID')}</span>
 						</div>
@@ -84,15 +84,9 @@
 							<input type="hidden" name="items" value={JSON.stringify(items)} />
 							<input type="hidden" name="total" value={grandTotal} />
 							<button 
-                  			class="mt-6 w-full rounded-lg bg-blue-600 py-3 text-white"
+                  			class="mt-6 w-full font-semibold rounded-sm bg-[#0443F2] py-3 text-gray-200 hover:bg-[#0433C2] cursor-pointer"
                   			type="submit">Bayar Sekarang</button>
 					</form>
-					<!-- <button
-						onclick={redirectToPayment}
-						class="mt-6 w-full rounded-lg bg-blue-600 py-3 text-white transition hover:bg-blue-700"
-					>
-						Bayar Sekarang
-					</button> -->
 				</div>
 			</div>
 		{:else}
@@ -101,7 +95,7 @@
 				<div class="grid grid-cols-1 items-start gap-8 md:grid-cols-2">
 					<!-- Kiri -->
 					<div class="flex flex-col gap-4">
-						<div class="flex flex-col items-start rounded-lg border p-4 shadow-md">
+						<div class="flex flex-col items-start rounded-sm border p-4 shadow-md">
 							<h2 class="pl-1 text-xl font-semibold text-gray-500">Alamat Pengiriman</h2>
 							<div class="flex gap-1 pt-2">
 								<Icon icon="mdi:location" width="20" height="24" style="color: #0443F2;" />
@@ -111,7 +105,7 @@
 							</div>
 						</div>
 
-						<div class="flex flex-col items-center rounded-lg border p-4 shadow-md">
+						<div class="flex flex-col items-center rounded-sm border p-4 shadow-md text-gray-900">
 							<img
 								src={it.image_url}
 								alt={it.name}
@@ -127,17 +121,17 @@
 						class="flex h-full flex-col justify-between rounded-lg border bg-gray-50 p-6 shadow-md"
 					>
 						<div>
-							<h3 class="mb-4 text-lg font-semibold">Ringkasan Pesanan</h3>
+							<h3 class="mb-4 text-lg font-semibold text-gray-900">Ringkasan Pesanan</h3>
 							<div class="mb-2 flex justify-between">
 								<span>Harga</span>
-								<span>Rp {Number(it.price).toLocaleString('id-ID')}</span>
+								<span class="font-semibold">Rp {Number(it.price).toLocaleString('id-ID')}</span>
 							</div>
-							<div class="mb-2 flex justify-between">
+							<div class="mb-2 flex justify-between text-gray-900">
 								<span>Jumlah</span>
 								<span>{it.qty}</span>
 							</div>
 							<hr class="my-4" />
-							<div class="flex justify-between text-xl font-bold">
+							<div class="flex justify-between text-xl font-bold text-gray-900">
 								<span>Total</span>
 								<span>Rp {(Number(it.price) * it.qty).toLocaleString('id-ID')}</span>
 							</div>
@@ -146,7 +140,7 @@
 							<input type="hidden" name="items" value={JSON.stringify(items)} />
 							<input type="hidden" name="total" value={grandTotal} />
 							<button 
-                  			class="mt-6 w-full rounded-lg bg-[#0443F2] py-3 text-gray-200 hover:bg-[#0433C2] cursor-pointer"
+                  			class="mt-6 w-full font-semibold rounded-sm bg-[#0443F2] py-3 text-gray-200 hover:bg-[#0433C2] cursor-pointer"
                   			type="submit">Bayar Sekarang</button>
 						</form>
 						

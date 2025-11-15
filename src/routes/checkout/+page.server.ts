@@ -5,8 +5,8 @@ import type { PageServerLoad, Actions } from './$types';
 import { MIDTRANS_SERVER_KEY } from '$env/static/private';
 
 export const load: PageServerLoad = async (event) => {
+	const { url, cookies } = event; 
 	const supabase = createSupabaseServerClient(event);
-	const url = event.url;
 	const slug = url.searchParams.get('slug');
 	const qtyParam = url.searchParams.get('qty');
 	const qty = qtyParam ? parseInt(qtyParam) : 1;
@@ -109,6 +109,7 @@ export const actions: Actions = {
 				currency: 'IDR',
 				payment_type: 'midtrans'
 			})
+			.eq('order_id', orderId)
 			.select()
 			.single();
 
@@ -192,6 +193,9 @@ export const actions: Actions = {
 			.from('orders')
 			.update({ payment_id: midtransData.transaction_id })
 			.eq('id', orderId);
+
+		console.log('orderId dari URL:', orderId);
+		console.log('order dari DB:', order);
 
 		throw redirect(303, midtransData.redirect_url);
 	}
