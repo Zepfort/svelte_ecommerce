@@ -203,6 +203,25 @@ export const actions: Actions = {
 			.update({ payment_id: midtransData.transaction_id })
 			.eq('id', orderId);
 
+			
+		try{
+			for (const item of items) {
+				const { error: rpcErr } = await supabase.rpc('decrement_stock', {
+					pid: item.id,
+					qty: item.qty
+				});
+				if (rpcErr) throw rpcErr;
+			}
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		} catch (e: any) {
+			console.error('Gagal kurangi stok', e);
+			await supabase.from('orders')
+			.delete()
+			.eq('id', orderId);
+
+			throw error(409, e.message || 'Stok tidak cukup')
+		}
+
 		throw redirect(303, midtransData.redirect_url);
 	}
 };

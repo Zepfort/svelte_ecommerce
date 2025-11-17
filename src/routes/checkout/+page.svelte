@@ -183,19 +183,19 @@
 								<span>Total</span>
 								<span>Rp {(Number(it.price) * it.qty).toLocaleString('id-ID')}</span>
 							</div>
+							<form method="POST">
+								<input type="hidden" name="items" value={JSON.stringify(items)} />
+								<input type="hidden" name="total" value={grandTotal} />
+								<input type="hidden" name="address_id" value={selectedAddressId} />
+								<button
+									class="mt-6 w-full cursor-pointer rounded-sm bg-[#0443F2] py-3 font-semibold text-gray-200 hover:bg-[#0433C2]"
+									type="submit">Bayar Sekarang</button
+								>
+							</form>
 						</div>
-						<form method="POST">
-							<input type="hidden" name="items" value={JSON.stringify(items)} />
-							<input type="hidden" name="total" value={grandTotal} />
-							<input type="hidden" name="address_id" value={selectedAddressId} />
-							<button
-								class="mt-6 w-full cursor-pointer rounded-sm bg-[#0443F2] py-3 font-semibold text-gray-200 hover:bg-[#0433C2]"
-								type="submit">Bayar Sekarang</button
-							>
-						</form>
 					</div>
 				</div>
-			{/each}
+				{/each}
 		{/if}
 	{:else}
 		<p>Keranjang kosong atau tidak ada item untuk checkout.</p>
