@@ -1,136 +1,133 @@
-<svelte:options runes={true} />
-
 <script lang="ts">
-  import { onMount } from 'svelte';
+	import Icon from '@iconify/svelte';
+  // import * as echarts from 'echarts'; // fallback
+	import type { PageData } from './$types';
+	import MetricCard from './components/MetricCards.svelte';
 
-    // dummy
-  let stats = {
-    revenue: 125430000,
-    orders: 342,
-    customers: 1820,
-    products: 71
+	let { data } = $props<{ data: PageData }>();
+
+  const option = {
+    tooltip: {
+      trigger: 'axis'
+    },
+    xAxis: {
+      type: 'category',
+      data: data.chart.map((v: any) => v.day)
+    },
+    yAxis: {
+      type: 'value',
+      axisLabel: {
+        formatter: (value: number) => `Rp ${value.toLocaleString('id-ID')}`
+      }
+    },
+    series: [
+      {
+        name: 'Total',
+        type: 'line',
+        data: data.chart.map((v: any) => v.total),
+        areaStyle: {}  
+      }
+    ],
+    grid: {
+      left: '3%',
+      right: '4%',
+      bottom: '3%',
+      containLabel: true
+    }
   };
 
-  // dummy
-  let recentOrders = [
-    { id: 'ORD-0012', customer: 'Budi', total: 150000, status: 'Shipped', date: '2025-09-28' },
-    { id: 'ORD-0011', customer: 'Sari', total: 250000, status: 'Processing', date: '2025-09-27' },
-    { id: 'ORD-0010', customer: 'Tono', total: 99000, status: 'Delivered', date: '2025-09-25' },
-  ];
+  // Registrasi modul echarts yang diperlukan (tree-shaking)
+  // echarts.use([LineChart, GridComponent, TooltipComponent, CanvasRenderer]);
 
-  // you can fetch real metrics in onMount or use load() server-side
-  onMount(() => {
-    // fetch from API / supabase if needed
-  });
-
-  function formatRp(v:number) {
-    return new Intl.NumberFormat('id-ID').format(v);
-  }
+  console.log('chart', data.chart);
 </script>
 
 <!-- Stats -->
 <section class="space-y-6">
-  <h2 class="text-2xl font-bold text-slate-900">Dashboard</h2>
+	<h2 class="text-2xl font-bold text-slate-900">Dashboard</h2>
 
-  <!-- cards -->
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-    <div class="p-4 bg-white rounded-xl shadow-sm border">
-      <div class="flex items-center justify-between">
-        <div>
-          <div class="text-xs font-medium text-gray-500">Revenue</div>
-          <div class="text-2xl font-semibold mt-1">Rp{formatRp(stats.revenue)}</div>
-        </div>
-        <div class="text-green-600 text-sm font-medium">+12% YoY</div>
-      </div>
-      <div class="mt-3 text-sm text-gray-500">Total sales this month</div>
-    </div>
+	<!-- cards -->
+	<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
+		<MetricCard
+			label="Total Pendapatan"
+			value={data.revenue}
+			format="currency"
+			icon="mdi:cash-multiple"
+		/>
+		<MetricCard
+			label="Total Order"
+			value={data.orders}
+			format="number"
+			href="/admin/orders"
+			icon="mdi:cart-outline"
+		/>
+		<MetricCard
+			label="Pembeli"
+			value={data.customers}
+			format="number"
+			href="/admin/users"
+			icon="mdi:account-group"
+		/>
+		<MetricCard
+			label="Total Produk"
+			value={data.products}
+			format="number"
+			href="/admin/products"
+			icon="mdi:package-variant"
+		/>
+	</div>
 
-    <div class="p-4 bg-white rounded-xl shadow-sm border">
-      <div class="flex items-center justify-between">
-        <div>
-          <div class="text-xs font-medium text-gray-500">Orders</div>
-          <div class="text-2xl font-semibold mt-1">{stats.orders}</div>
-        </div>
-        <div class="text-indigo-600 text-sm font-medium">See orders</div>
-      </div>
-      <div class="mt-3 text-sm text-gray-500">New & returning orders</div>
-    </div>
+	<!-- chart  -->
+	<div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
+		<div class="flex flex-col rounded-sm border-gray-700">
+			<h3 class="mb-4 text-lg font-semibold">Sales Trend (7 hari)</h3>
 
-    <div class="p-4 bg-white rounded-xl shadow-sm border">
-      <div class="flex items-center justify-between">
-        <div>
-          <div class="text-xs font-medium text-gray-500">Customers</div>
-          <div class="text-2xl font-semibold mt-1">{stats.customers}</div>
-        </div>
-        <div class="text-purple-600 text-sm font-medium">+3% m/m</div>
-      </div>
-      <div class="mt-3 text-sm text-gray-500">Active customers</div>
-    </div>
+			<!-- {#if data.chart.length && data.chart.some((v: any) => v.total > 0)}
+				<div class="rounded border bg-white p-4">
+					<Chart {init} {option} style="width: 100%; height: 400px" />
+				</div>
+			{:else}
+				<div class="rounded border bg-white p-6 text-center text-gray-500">
+					<p>Belum ada penjualan 7 hari terakhir</p>
+				</div>
+			{/if} -->
+		</div>
+	</div>
 
-    <div class="p-4 bg-white rounded-xl shadow-sm border">
-      <div class="flex items-center justify-between">
-        <div>
-          <div class="text-xs font-medium text-gray-500">Products</div>
-          <div class="text-2xl font-semibold mt-1">{stats.products}</div>
-        </div>
-        <div class="text-yellow-600 text-sm font-medium">Manage</div>
-      </div>
-      <div class="mt-3 text-sm text-gray-500">Total catalog items</div>
-    </div>
-  </div>
-
-  <!-- chart + recent orders -->
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-    <!-- Chart placeholder -->
-    <div class="bg-white rounded-xl shadow-sm border p-4">
-      <div class="flex items-center justify-between mb-3">
-        <h3 class="text-lg font-medium">Sales (this month)</h3>
-        <div class="text-sm text-gray-500">Updated xx ago</div>
-      </div>
-      <!-- Placeholder for chart -->
-      <div class="h-52 rounded-lg bg-gradient-to-r from-indigo-50 to-white flex items-center justify-center text-indigo-300">
-        <!-- replace with chart lib like Chart.js, ApexCharts later -->
-        <span class="text-sm">[Grafik Penjualan]</span>
-      </div>
-    </div>
-
-    <!-- Recent orders -->
-    <div class="bg-white rounded-xl shadow-sm border p-4 overflow-auto">
-      <div class="flex items-center justify-between mb-3">
-        <h3 class="text-lg font-medium">Recent orders</h3>
-        <a href="/admin/orders" class="text-sm text-indigo-600">See all</a>
-      </div>
-
-      <table class="min-w-full text-sm">
-        <thead class="text-left text-gray-500">
-          <tr>
-            <th class="py-2 px-3">Order</th>
-            <th class="py-2 px-3">Customer</th>
-            <th class="py-2 px-3">Total</th>
-            <th class="py-2 px-3">Status</th>
-            <th class="py-2 px-3">Date</th>
-          </tr>
-        </thead>
-        <tbody class="divide-y">
-
-          {#each recentOrders as o}
-            <tr>
-              <td class="py-3 px-3 font-medium text-slate-800">{o.id}</td>
-              <td class="py-3 px-3">{o.customer}</td>
-              <td class="py-3 px-3">Rp{formatRp(o.total)}</td>
-              <td class="py-3 px-3">
-                <span class="px-3 py-1 rounded-full text-xs font-medium
-                  {o.status === 'Shipped' ? 'bg-green-50 text-green-700' : ''}
-                  {o.status === 'Processing' ? 'bg-yellow-50 text-yellow-700' : ''}
-                  {o.status === 'Delivered' ? 'bg-blue-50 text-blue-700' : ''}">
-                  {o.status}
-                </span>
-              </td>
-              <td class="py-3 px-3 text-gray-500">{o.date}</td>
-            </tr>
-          {/each}
-        </tbody>
-      </table>
-    </div>
-  </div>
+	<!-- Order terakhir -->
+	<div class="overflow-hidden rounded-sm border bg-white px-4 pb-8 shadow-sm">
+		<h3 class="my-4 text-lg font-semibold">Order Terakhir</h3>
+		<table class="w-full px-4 text-sm">
+			<thead class="rounded-sm bg-gray-100 py-2 text-blue-800">
+				<tr>
+					<th class="px-4 py-2 text-left">Order</th>
+					<th class="px-4 py-2 text-left">Pembeli</th>
+					<th class="px-4 py-2 text-right">Total</th>
+					<th class="px-4 py-2 text-left">Status</th>
+					<th class="px-4 py-2 text-left">Tanggal</th>
+				</tr>
+			</thead>
+			<tbody>
+				{#each data.recent as row}
+					<tr class="border-b border-gray-400 hover:bg-gray-50">
+						<td class="px-4 py-2">{row.order_code}</td>
+						<td class="px-4 py-2">{row.customer_name}</td>
+						<td class="px-4 py-2 text-right">
+							Rp {Number(row.total).toLocaleString('id-ID')}
+						</td>
+						<td class="px-4 py-2">
+							<span class="rounded-full bg-green-100 px-2 py-1 text-xs text-green-700">
+								{row.status}
+							</span>
+						</td>
+						<td class="px-4 py-2">{new Date(row.created).toLocaleDateString('id-ID')}</td>
+					</tr>
+				{:else}
+					<tr>
+						<td colspan="5" class="px-4 py-8 text-center text-gray-400">No orders yet</td>
+					</tr>
+				{/each}
+			</tbody>
+		</table>
+	</div>
 </section>
