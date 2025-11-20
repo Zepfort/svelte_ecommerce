@@ -29,7 +29,7 @@
 			{#if form && form.errors?.length}
 				{#each form.errors as error}
 					<h2
-						class="flex h-[40px] w-full items-center justify-center rounded-lg bg-red-500 text-xl font-normal text-gray-100"
+						class="flex h-[40px] w-full items-center justify-center rounded-sm bg-red-500 text-xl font-normal text-gray-100"
 					>
 						{error}
 					</h2>
@@ -134,14 +134,14 @@
 		font-size: 16px;
 		padding: 6px 12px 6px 12px;
 		border: 1px solid #d1d5db;
-		border-radius: 6px;
+		border-radius: 4px;
 	}
 	.input-field-pw {
 		font-size: 16px;
 		padding: 6px 12px 6px 12px;
 		border: 1px solid #d1d5db;
-		border-top-left-radius: 6px;
-		border-bottom-left-radius: 6px;
+		border-top-left-radius: 4px;
+		border-bottom-left-radius: 4px;
 		width: 85%;
 	}
 

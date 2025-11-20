@@ -31,6 +31,10 @@
 	const waLink = $derived(`https://wa.me/${waNumber}?text=${encodeURIComponent(waText)}`);
 </script>
 
+<svelte:head>
+  <title>Pembayaran Error</title>
+</svelte:head>
+
 <section class="flex min-h-screen w-full flex-col items-center justify-center bg-gray-100">
 	<div class="bg-[#FAFAFA]rounded-lg w-full max-w-md p-8 text-center shadow-lg">
 		<h1 class="mb-4 text-2xl font-semibold text-red-600">Maaf, terjadi Gangguan Teknis.</h1>

@@ -46,6 +46,10 @@
 	}
 </script>
 
+<svelte:head>
+  <title>Checkout</title>
+</svelte:head>
+
 <div class="container mx-auto px-4">
 	<h1 class="mb-4 text-2xl font-bold">Checkout</h1>
 

@@ -31,6 +31,10 @@
   const waLink = $derived(`https://wa.me/${waNumber}?text=${encodeURIComponent(waText)}`);
 </script>
 
+<svelte:head>
+  <title>Pembayaran Gagal</title>
+</svelte:head>
+
 <section class="min-h-screen w-full flex flex-col items-center justify-center bg-gray-100">
   <div class="max-w-md w-full bg-[#FAFAFA] rounded-lg shadow-lg p-8 text-center">
     <h1 class="text-2xl font-semibold text-red-700 mb-4">Pembayaran Gagal</h1>

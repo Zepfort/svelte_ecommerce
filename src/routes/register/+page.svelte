@@ -4,4 +4,8 @@
     let { form } = $props();
 </script>
 
+<svelte:head>
+  <title>Daftar</title>
+</svelte:head>
+
 <AuthForm isRegistration={true} {form}/>

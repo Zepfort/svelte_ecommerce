@@ -18,7 +18,7 @@
     <section class="grid gap-4 sm:grid-cols-2 lg:grid-cols-6">
       {#each data.orders as order (order.id)}
         <a
-          href="/profile/orders/{order.order_id}"
+          href={`/profile/purchase-history/${order.order_id}`}
           class="block rounded-xl border bg-white p-4 shadow-sm transition hover:shadow-md"
         >
           <div class="mb-2 flex items-center justify-between">

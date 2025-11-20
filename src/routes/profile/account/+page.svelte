@@ -34,6 +34,10 @@
 	}
 </script>
 
+<svelte:head>
+  <title>Profile Akun</title>
+</svelte:head>
+
 <section class="h-screen w-full bg-white shadow-md sm:p-6 md:p-8 lg:ml-64">
 	<h1 class="mb-4 text-center text-xl font-bold sm:text-2xl lg:text-left">Profil Saya</h1>
 

@@ -12,5 +12,8 @@
         passwordConfirmation: ''
     };
 </script>
+<svelte:head>
+  <title>Masuk</title>
+</svelte:head>
 
 <AuthForm isRegistration={false} form={form ?? defaultForm} />

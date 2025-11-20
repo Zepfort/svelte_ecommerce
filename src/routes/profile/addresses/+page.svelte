@@ -49,6 +49,10 @@
 }
 </script>
 
+<svelte:head>
+  <title>Ubah Alamat</title>
+</svelte:head>
+
 <section class="bg-white p-4 sm:p-6 ml-72">
   <h1 class="mb-6 text-2xl font-semibold text-gray-800 border-b pb-4">
     Alamat Saya
