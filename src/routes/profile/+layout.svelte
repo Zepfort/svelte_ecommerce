@@ -33,17 +33,28 @@
 		</div>
 
 		<nav class="flex-1 space-y-2 p-4">
-			<!-- <a
-				href="/profile"
+			<a
+				href="/profile/account"
 				class="flex items-center gap-3 rounded-sm px-4 py-2 leading-none transition col-bg-primary"
 			>
 				<Icon icon="famicons:home" 
 					width="20" 
 					height="20" 
 					inline={true} 
-					class="mr-3 align-middle inline-flex" />
-				<span class="text-center">Profile</span>
-			</a> -->
+					class="mr-0 align-middle inline-flex" />
+				<span class="text-center">Profil</span>
+			</a>
+			<a
+				href="/profile/purchase-history"
+				class="flex items-center gap-3 rounded-sm px-4 py-2 leading-none transition col-bg-primary"
+			>
+				<Icon icon="pajamas:history" 
+					width="20" 
+					height="24" 
+					inline={true} 
+					class="mr-0 align-middle inline-flex" />
+				<span class="text-center">Riwayat Pembelian</span>
+			</a>
 
 			<a href="/" class="flex items-center gap-3 rounded-sm px-4 py-2 transition col-bg-admin">
 				<Icon
@@ -51,7 +62,7 @@
 					width="20"
 					height="20"
 					inline={true}
-					class="mr-3 align-middle inline-flex"
+					class="mr-0 align-middle inline-flex"
 				/>
 				<span>Kembali</span>
 			</a>
