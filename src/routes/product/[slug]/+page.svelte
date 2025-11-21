@@ -43,7 +43,7 @@
         Deskripsi
         <Icon icon="mdi:chevron-down" width="20" class="transition group-open:rotate-180" />
       </summary>
-      <p class="mt-2 text-sm text-gray-700 md:text-base">{product.description}</p>
+      <p class="mt-2 text-sm text-gray-700 md:text-base whitespace-pre-line">{product.description}</p>
     </details>
 
     <!-- Atur jumlah & catatan -->

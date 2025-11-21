@@ -39,7 +39,7 @@
       <ul class="flex flex-col gap-2 text-sm">
         <li><a href="/" class="nav-item">Home</a></li>
         <li><a href="/" class="nav-item">Product</a></li>
-        <li><a href="/" class="nav-item">About Us</a></li>
+        <li><a href="/about-us" class="nav-item">About Us</a></li>
       </ul>
     </div>
 

@@ -123,8 +123,8 @@
         <div class="col-span-3 text-sm font-bold text-gray-900">ORDER</div>
         <div class="col-span-2 text-sm font-bold text-gray-900">USER</div>
         <div class="col-span-1 text-sm font-bold text-gray-900">TOTAL</div>
-        <div class="col-span-2 text-sm font-bold text-gray-900">STATUS</div>
-        <div class="col-span-2 text-sm font-bold text-gray-900">PAYMENT</div>
+        <div class="col-span-1 text-sm font-bold text-gray-900">STATUS</div>
+        <div class="col-span-3 text-sm font-bold text-gray-900">PAYMENT</div>
         <div class="col-span-1 text-sm font-bold text-gray-900">WAKTU</div>
         <div class="col-span-1 text-sm font-bold text-gray-900 text-right">AKSI</div>
       </div>
@@ -150,9 +150,9 @@
                   Rp{Number(order.total_amount).toLocaleString('id-ID')}
                 </div>
 
-                <div class="col-span-2">
+                <div class="col-span-1">
                   <div class="flex items-center gap-3">
-                    <select
+                    <!-- <select
                       class="rounded-md border px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-200"
                       bind:value={order.status}
                       onchange={() => updateOrderStatus(order)}
@@ -163,7 +163,7 @@
                       <option value="completed">completed</option>
                       <option value="cancelled">cancelled</option>
                       <option value="void">void</option>
-                    </select>
+                    </select> -->
 
                     <span class={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium ${statusBadge(order.status)}`}>
                       <Icon icon="mdi:checkbox-blank-circle" width="10" height="10" />
@@ -172,7 +172,7 @@
                   </div>
                 </div>
 
-                <div class="col-span-2 text-sm text-slate-700">
+                <div class="col-span-3 text-sm text-slate-700">
                   <div>{order.payment_type ?? '-'}</div>
                   <div class="text-xs text-slate-400">{order.transaction_id ?? ''}</div>
                 </div>

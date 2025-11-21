@@ -62,6 +62,7 @@
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
+  <title>RenzMart</title>
 </svelte:head>
 
 {#if 

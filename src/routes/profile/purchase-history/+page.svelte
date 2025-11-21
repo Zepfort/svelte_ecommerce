@@ -50,7 +50,7 @@
 
           <div class="flex items-end justify-between">
             <p class="text-sm text-zinc-600">
-              {order.order_items.length} barang
+              {order.order_items.length} jenis barang
             </p>
             <p class="font-semibold">
               {formatCurrency(order.total_amount, order.currency)}

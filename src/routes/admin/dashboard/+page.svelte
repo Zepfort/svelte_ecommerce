@@ -38,8 +38,6 @@
 
   // Registrasi modul echarts yang diperlukan (tree-shaking)
   // echarts.use([LineChart, GridComponent, TooltipComponent, CanvasRenderer]);
-
-  console.log('chart', data.chart);
 </script>
 
 <!-- Stats -->
