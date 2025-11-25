@@ -18,6 +18,7 @@ export const load: PageServerLoad = async ({ params, locals }) => {
       status,
       payment_type,
       transaction_id,
+      redirect_url,
       created_at,
       updated_at,
       addresses (

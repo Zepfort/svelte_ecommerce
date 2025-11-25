@@ -1,5 +1,3 @@
-<svelte:options runes={true} />
-
 <script lang="ts">
 	import Icon from '@iconify/svelte';
 	import { goto } from '$app/navigation';
@@ -79,7 +77,7 @@
 	</aside>
 
 	<!-- Main Content -->
-	<main class="flex-1 px-6">
+	<main class="flex-1 px-0 md:px-6 ">
 		{@render children?.()}
 	</main>
 </div>

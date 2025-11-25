@@ -20,7 +20,7 @@
     <!-- Nama + rating -->
     <h1 class="text-xl font-bold text-gray-900 md:text-2xl">{product.name}</h1>
     <p class="mt-1 text-sm text-gray-600 md:text-base flex flex-row">
-      Terjual {product.sold}+ • {product.rating}  <Icon icon="meteocons:star-fill" class="text-yellow-400" width="24" height="24" /> (500+ rating)
+      Terjual {product.sold}
     </p>
 
     <!-- Harga -->

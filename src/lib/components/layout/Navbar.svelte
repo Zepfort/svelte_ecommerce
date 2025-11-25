@@ -38,10 +38,12 @@
 			goto(`/search?q=${encodeURIComponent(q)}`);
 		}
 	}
+
+  
 </script>
 
-<header class="sticky top-0 z-40 bg-gray-950">
-  <div class="mx-auto flex w-full items-center justify-between gap-3 px-4 py-4 sm:px-6 lg:px-8">
+<header class="sticky top-0 z-40 bg-gray-950 w-full">
+  <div class="mx-auto flex items-center justify-between gap-3 px-4 py-4 sm:px-6 md:px-8 lg:px-10">
 
     <!-- KIRI -->
       <!-- Logo -->
@@ -67,9 +69,9 @@
           bind:value={searchQuery}
           type="text"
           placeholder="Cari produk"
-          class="w-full rounded-l-sm border-none px-4 py-1.5 outline-none sm:flex-1"
+          class="w-full rounded-l-sm border-none px-4 py-1.5 outline-none sm:flex-1 h-10"
         />
-        <button type="submit" class="bg-[#0443F2] hover:bg-[#0433C2] text-gray-200 grid h-11 w-12 place-items-center rounded-r-sm cursor-pointer" aria-label="Cari">
+        <button type="submit" class="bg-[#0443F2] hover:bg-[#0433C2] text-gray-200 grid h-10 w-12 place-items-center rounded-r-sm cursor-pointer" aria-label="Cari">
           <Icon icon="mdi:magnify" width="24" height="24" color="white" />
         </button>
       </form>
@@ -82,7 +84,7 @@
       <CartButton />
 
       <button
-        class="grid h-10 w-10 place-items-center rounded-full bg-transparent hover:bg-gray-800 sm:hidden"
+        class="grid h-10 w-10 place-items-center rounded-full bg-transparent hover:bg-gray-800 hidden"
         aria-label="Akun"
         onclick={() => {
         }}
@@ -150,3 +152,24 @@
     </div>
   {/if}
 </div>
+
+<!-- BOTTOM NAVBAR MOBILE -->
+<nav class="fixed bottom-0 left-0 right-0 z-50 bg-gray-950 text-gray-200 flex justify-around py-3 md:hidden">
+  <button
+    class="flex flex-col items-center justify-center"
+    aria-label="Home"
+    onclick={() => goto('/') }
+  >
+    <Icon icon="mdi:home" width="24" height="24" color="white" />
+    <span class="text-xs">Home</span>
+  </button>
+  <button
+    class="flex flex-col items-center justify-center"
+    aria-label="Profile"
+    onclick={() => goto('/profile') }
+  >
+    <Icon icon="mdi:account-circle" width="24" height="24" color="white" />
+    <span class="text-xs">Profile</span>
+  </button>
+</nav>
+

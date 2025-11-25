@@ -30,9 +30,6 @@
 
       <!-- Rating & terjual -->
       <div class="mt-1 flex items-center gap-1 text-xs text-gray-600 md:text-sm">
-        <Icon icon="meteocons:star-fill" class="text-yellow-400" width="16" height="16" />
-        <span>{product.rating ?? 0}</span>
-        <Icon icon="mdi:dot" width="12" height="12" />
         <span>{product.sold ?? 0} terjual</span>
       </div>
     </div>

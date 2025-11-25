@@ -183,7 +183,7 @@
 
                 <div class="col-span-1 flex justify-end gap-2">
                   <a href={`/admin/orders/${order.id}`} class="inline-flex items-center justify-center rounded-md border border-slate-200 bg-[#0443F2] px-3 py-2 text-sm shadow-sm hover:bg-[#0433C2]" aria-label="view">
-                    <Icon icon="mdi:pencil" width="18" height="18" class="text-gray-200"/>
+                    <Icon icon="mdi:file-eye" width="18" height="18" class="text-gray-200"/>
                   </a>
 
                   {#if order.status !== 'void'}

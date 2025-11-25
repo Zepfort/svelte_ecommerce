@@ -7,11 +7,11 @@
 	export let products: ProductListItem[];
 </script>
 
-<div class="container mx-0 flex flex-col items-center sm:px-4 md:px-16 lg:px-20 xl:px-24">
-	<div class="z-1">
+<div class="w-full md:container flex flex-col items-center px-0 lg:px-16 xl:px-20">
+	<div class="z-1 w-full">
 		<HeroSection />
 	</div>
-	<div class="flex w-full pt-16 pl-16">
+	<div class="flex w-full pt-16 pl-4">
 		<h1 class="text-2xl font-bold text-gray-950">Produk Terbaru</h1>
 	</div>
 	<div class="product-list mx-4 grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">

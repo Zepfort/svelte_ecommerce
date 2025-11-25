@@ -3,6 +3,7 @@
   import { cart, total, type CartItem as RawCartItem } from '$lib/stores/cart';
   import { loadCart, updateCartItem, removeCartItem } from '$lib/stores/cart';
   import { goto } from '$app/navigation'
+  import { slide } from 'svelte/transition'; 
 
   type CartItem = RawCartItem & { selected: boolean };
 
@@ -117,13 +118,15 @@ function handleCheckout() {
     >
     </button> 
     <!-- modal panel -->
-    <div 
-      class="fixed sm:absolute sm:-right-40 bottom-0 sm:bottom-auto
-             w-full sm:w-[28rem] md:w-[38rem] 
-             h-[80vh] sm:h-auto bg-white border 
-             shadow-xl rounded-t-lg sm:rounded-sm 
-             p-4 z-50 transition-all duration-300 
-             flex flex-col"
+     <div
+      transition:slide={{ duration: 300, axis: 'y'}}
+      class="fixed bottom-0 left-0 right-0 mx-auto
+           w-full max-w-lg
+           h-[75vh] bg-white border
+           shadow-xl rounded-t-2xl
+           p-4 z-50 flex flex-col
+           sm:absolute sm:bottom-auto sm:left-auto sm:right-0 sm:mx-0
+           sm:w-[36rem] sm:max-w-none sm:h-auto sm:rounded-sm"
     >
     <div class="flex justify-between items-center border-b pb-2 mb-4">
       <h2 class="text-lg font-semibold">Keranjang</h2>
@@ -131,6 +134,7 @@ function handleCheckout() {
         <Icon icon="mdi:close" width="20"/>
       </button>
     </div>
+    
 
       {#if items.length === 0}
         <p class="text-center text-gray-500">Keranjang kosong</p>
