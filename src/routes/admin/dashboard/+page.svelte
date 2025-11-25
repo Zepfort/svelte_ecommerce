@@ -78,7 +78,7 @@
 	<!-- chart  -->
 	<div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
 		<div class="flex flex-col rounded-sm border-gray-700">
-			<h3 class="mb-4 text-lg font-semibold">Sales Trend (7 hari)</h3>
+			<!-- <h3 class="mb-4 text-lg font-semibold">Sales Trend (7 hari)</h3> -->
 
 			<!-- {#if data.chart.length && data.chart.some((v: any) => v.total > 0)}
 				<div class="rounded border bg-white p-4">

@@ -152,19 +152,6 @@
 
                 <div class="col-span-1">
                   <div class="flex items-center gap-3">
-                    <!-- <select
-                      class="rounded-md border px-3 py-2 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-200"
-                      bind:value={order.status}
-                      onchange={() => updateOrderStatus(order)}
-                    >
-                      <option value="pending">pending</option>
-                      <option value="paid">paid</option>
-                      <option value="shipped">shipped</option>
-                      <option value="completed">completed</option>
-                      <option value="cancelled">cancelled</option>
-                      <option value="void">void</option>
-                    </select> -->
-
                     <span class={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium ${statusBadge(order.status)}`}>
                       <Icon icon="mdi:checkbox-blank-circle" width="10" height="10" />
                       <span class="capitalize">{order.status}</span>
@@ -186,7 +173,7 @@
                     <Icon icon="mdi:file-eye" width="18" height="18" class="text-gray-200"/>
                   </a>
 
-                  {#if order.status !== 'void'}
+                  <!-- {#if order.status !== 'void'}
                     <button
                       class="inline-flex items-center justify-center rounded-sm bg-rose-500 px-3 py-2.5 text-sm font-medium text-gray-200 shadow-sm hover:bg-rose-600 focus:outline-none"
                       onclick={() => openVoidModal(order)}
@@ -194,7 +181,7 @@
                     >
                       <Icon icon="mdi:trash-can" width="18" height="18" />
                     </button>
-                  {/if}
+                  {/if} -->
                 </div>
               </div>
             </li>
