@@ -13,7 +13,7 @@
     <img
       src={product.image_url}
       alt={product.name}
-      class="h-32 w-full object-contain object-center md:h-40"
+      class="h-32 w-full object-cover object-center md:h-40"
     />
   </div>
 

@@ -50,7 +50,7 @@
   <title>Checkout</title>
 </svelte:head>
 
-<div class="container mx-auto px-4">
+<div class="container mx-auto px-4 mb-8">
 	<h1 class="mb-4 text-2xl font-bold">Checkout</h1>
 
 	{#if items.length > 0}

@@ -8,7 +8,7 @@
   const mailto = `mailto:alvinzrenx788@gmail.com?subject=${subject}&body=${body}`;
 
   const waNumber = '6285641133135'; 
-  const waText = $derived(`Fawwaz digoreng sampai jadi abu`);
+  const waText = $derived(`Saya butuh bantuan Anda terkait website Renzmart`);
   const waLink = $derived(`https://wa.me/${waNumber}?text=${encodeURIComponent(waText)}`);
 
   const categories = [
@@ -35,12 +35,23 @@
 
     <!-- Navigasi -->
     <div class="flex flex-col gap-3">
-      <h3 class="text-lg font-bold">Navigasi</h3>
-      <ul class="flex flex-col gap-2 text-sm">
-        <li><a href="/" class="nav-item">Home</a></li>
-        <li><a href="/" class="nav-item">Product</a></li>
-        <li><a href="/about-us" class="nav-item">About Us</a></li>
-      </ul>
+      <h3 class="text-lg font-bold">Kontak Bantuan</h3>
+      <div>
+        <ul class="mt-2 flex flex-col gap-2 text-sm">
+          <li class="flex flex-row gap-2 items-center">
+            <Icon icon="logos:google-gmail" />
+            <a href="{mailto}" target="_blank" class="nav-item noopener noreferrer" aria-label="Email">
+              Email
+            </a>
+          </li>
+          <li class="flex flex-row gap-2 items-center" aria-label="WhatsApp">
+            <Icon icon="logos:whatsapp-icon" />
+            <a href="{waLink}" target="_blank" class="nav-item">
+            WhatsApp
+          </a>
+        </li>
+        </ul>
+      </div>
     </div>
 
     <!-- 4. Kategori Populer -->
@@ -68,24 +79,6 @@
 
     <!-- Kontak & Sosial Media -->
     <div class="flex flex-col gap-4">
-      <div>
-        <h3 class="text-lg font-bold">Kontak</h3>
-        <ul class="mt-2 flex flex-col gap-2 text-sm">
-          <li class="flex flex-row gap-2 items-center">
-            <Icon icon="logos:google-gmail" />
-            <a href="{mailto}" target="_blank" class="nav-item noopener noreferrer" aria-label="Email">
-              Email
-            </a>
-          </li>
-          <li class="flex flex-row gap-2 items-center" aria-label="WhatsApp">
-            <Icon icon="logos:whatsapp-icon" />
-            <a href="{waLink}" target="_blank" class="nav-item">
-            WhatsApp
-          </a>
-        </li>
-        </ul>
-      </div>
-
       <div>
         <h3 class="text-lg font-bold">Ikuti Kami</h3>
         <ul class="mt-2 flex gap-4">
