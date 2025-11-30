@@ -20,17 +20,8 @@
 	<!-- Sidebar -->
 	<aside class="fixed inset-y-0 left-0 z-20 flex h-full w-72 flex-col bg-gray-950 text-white transform transition-transform duration-300 ease-in-out
 		       -translate-x-full md:translate-x-0 md:w-72">
-		<div class="border-b border-gray-800 p-6">
-			<div class="flex items-center space-x-3">
-				<Icon icon="mdi:account-circle" width="48" height="48" class="text-gray-400" />
-				<div>
-					<p class="font-semibold">{data.userProfile.name}</p>
-					<p class="text-sm text-gray-400">{data.userProfile.email}</p>
-				</div>
-			</div>
-		</div>
-
-		<nav class="flex-1 space-y-2 p-4">
+			   <h1 class="text-2xl font-bold text-gray-200 pt-12 pb-4 pl-6">Profile</h1>
+			   <nav class="flex-1 space-y-2 p-4">
 			<a
 				href="/profile/account"
 				class="flex items-center gap-3 rounded-sm px-4 py-2 leading-none transition col-bg-primary"

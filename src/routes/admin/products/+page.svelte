@@ -417,11 +417,3 @@
 	</div>
 </section>
 
-<style>
-	/* .currencyInput__formatted {
-		width: 100%;
-		border: 1px solid #ccc;
-		border-radius: 0.375rem;
-		padding: 0.5rem;
-	} */
-</style>

@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Icon from '@iconify/svelte';
 	import '/src/lib/style/utils.css';
+	import { goto } from '$app/navigation';
 	interface Props {
 		data: {
 			userProfile: {
@@ -32,6 +33,10 @@
 	function formatDate(date: any) {
 		return date.slice(0, 10);
 	}
+
+	function gotoEdit() {
+		goto("/profile/account/edit-account")
+	}
 </script>
 
 <svelte:head>
@@ -44,16 +49,24 @@
 	<div class="space-y-4">
 		<!-- Profil -->
 		<div
-			class="flex flex-col items-center text-center sm:flex-row sm:items-start sm:space-x-4 sm:text-left"
+			class="flex items-center text-center sm:flex-row sm:items-start sm:space-x-4 sm:text-left"
 		>
 			<div
 				class="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-gray-200 sm:mx-0"
 			>
 				<Icon icon="material-symbols:account-circle" width="80" height="80" class="text-gray-500" />
 			</div>
-			<div class="mt-3 ml-3 sm:mt-0">
+			
+			<div class="flex flex-col mt-3 ml-3 sm:mt-0">
 				<h2 class="text-lg font-semibold">{data.userProfile.name}</h2>
 				<p class="text-gray-600">{data.userProfile.email}</p>
+			</div>
+			<div>
+				<button class="flex gap-2 items-center py-0.5 px-4 rounded-sm text-gray-200 bg-[#0443F2] hover:bg-[#0433C2]"
+				onclick={gotoEdit}>
+					<Icon icon="mdi:pencil" width="18" height="18" class="text-gray-200"/>
+					Edit
+				</button>
 			</div>
 		</div>
 
