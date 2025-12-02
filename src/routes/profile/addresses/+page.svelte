@@ -232,7 +232,7 @@
       <button
         type="submit"
         disabled={loading}
-        class="px-6 py-2 bg-[#0443F2] text-white font-medium rounded hover:bg-[#0433C2] focus:ring-4 focus:ring-blue-300 transition disabled:opacity-60"
+        class="px-6 py-2 bg-[#0443F2] text-gray-200 font-medium rounded hover:bg-[#0433C2] focus:ring-4 focus:ring-blue-300 transition disabled:opacity-60"
       >
         {loading ? 'Menyimpan...' : (data.address ? 'Tambah Alamat' :  'Perbarui Alamat')}
       </button>

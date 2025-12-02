@@ -50,7 +50,7 @@
     </div>
     <div class="flex flex-col gap-4 space-x-4">
       <button 
-        class="px-6 py-2 w-full bg-[#0443F2] text-white rounded hover:bg-[#0433C2] transition"
+        class="px-6 py-2 w-full bg-[#0443F2] text-gray-200 rounded hover:bg-[#0433C2] transition"
         onclick={goToCheckout}
       >
         Kembali ke Checkout

@@ -42,7 +42,7 @@
 
 <div class="flex w-full bg-gray-50 text-gray-900">
 	<!-- Sidebar -->
-	<aside class="fixed flex h-screen w-72 flex-col bg-[#07071a] text-white">
+	<aside class="fixed flex h-screen w-72 flex-col bg-[#07071a] text-gray-200">
 		<div class="border-b border-white/6 px-6 py-5">
 			<a href="/" class="flex items-center gap-3">
 				<div class="text-2xl font-extrabold">RenzMart</div>
@@ -85,14 +85,14 @@
 	<main class="ml-72 h-screen w-full">
 		<!-- topbar -->
 		<header
-			class="fixed right-0 left-72 flex items-center justify-between border-b border-white/6 bg-[#050417] px-6 py-3 text-white"
+			class="fixed right-0 left-72 flex items-center justify-between border-b border-white/6 bg-[#050417] px-6 py-3 text-gray-200"
 		>
 			<div class="flex items-center gap-4">
 				<div class="text-lg font-semibold">Panel Admin</div>
 			</div>
 
 			<div class="flex items-center gap-4 pr-12">
-				<div class="hidden items-center gap-3 text-sm text-white/80 sm:flex">
+				<div class="hidden items-center gap-3 text-sm text-gray-200/80 sm:flex">
 					{#if userProfile}
 						<div class="user-badge-group">
 							<div class="user-info">
@@ -101,7 +101,7 @@
 								>
 									<Icon icon="material-symbols:person-outline" width="24" height="24" />
 								</div>
-								<span class="text-sm text-white">
+								<span class="text-sm font-semibold text-gray-200">
 									{userProfile?.name}
 								</span>
 							</div>

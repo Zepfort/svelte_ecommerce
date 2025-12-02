@@ -35,9 +35,9 @@
       font-semibold leading-none transition
       focus:outline-none focus:ring-2 focus:ring-[--primary] focus:ring-offset-2
       ${props.isDanger
-        ? 'bg-red-700 text-white hover:bg-red-800'
+        ? 'bg-red-700 text-gray-200 hover:bg-red-800'
         : props.isSecondary
-        ? 'bg-[#0443F2] text-white hover:bg-[#0433C2]'
+        ? 'bg-[#0443F2] text-gray-200 hover:bg-[#0433C2]'
         : ''}
       ${props.isLogin 
       ? 'bg-blue-50 text-[#0443F2] hover:bg-[#0433C2] hover:text-blue-50'
@@ -59,12 +59,12 @@
       font-semibold leading-none transition
       focus:outline-none focus:ring-2 focus:ring-[--primary] focus:ring-offset-2
       ${props.isDanger
-        ? 'bg-red-700 text-white hover:bg-red-800'
+        ? 'bg-red-700 text-gray-200 hover:bg-red-800'
         : props.isSecondary
-        ? 'bg-[#0443F2] text-white hover:bg-[#0433C2]'
+        ? 'bg-[#0443F2] text-gray-200 hover:bg-[#0433C2]'
         : props.isSubmit
         ? 'w-full border-2 bg-[#0443F2] text-gray-200 hover:bg-[#0433C2]'
-        : 'bg-[#0443F2] text-white hover:bg-[#0433C2]'}
+        : 'bg-[#0443F2] text-gray-200 hover:bg-[#0433C2]'}
       ${props.isMenu ? 'min-w-[150px]' : ''}
     `}
     style="--primary:#0443F2; --hover-primary:#0433C2;"

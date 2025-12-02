@@ -42,7 +42,7 @@
 		<p class="mb-6 text-gray-700">{errorMessage}</p>
 		<div class="flex flex-col gap-4 space-x-4">
 			<button
-				class="w-full rounded bg-[#0443F2] px-6 py-2 text-white transition hover:bg-[#0433C2]"
+				class="w-full rounded bg-[#0443F2] px-6 py-2 text-gray-200 transition hover:bg-[#0433C2]"
 				onclick={goToCheckout}
 			>
 				Kembali ke Checkout

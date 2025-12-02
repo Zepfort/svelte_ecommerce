@@ -264,7 +264,7 @@
 							</button>
 							<button
 								type="submit"
-								class="rounded bg-[#0443F2] px-4 py-2 text-white hover:bg-[#0433C2]"
+								class="rounded bg-[#0443F2] px-4 py-2 text-gray-200 hover:bg-[#0433C2]"
 							>
 								{isEditing ? 'Update' : 'Simpan'}
 							</button>
@@ -293,7 +293,7 @@
 					<!-- trigger submit via runes -->
 					<button
 						type="submit"
-						class="rounded bg-red-600 px-4 py-2 text-white hover:bg-red-700"
+						class="rounded bg-red-600 px-4 py-2 text-gray-200 hover:bg-red-700"
 						onclick={(e) => {
 							e.preventDefault();
 							formNode?.requestSubmit();
@@ -313,7 +313,7 @@
 				<h2 class="mb-2 text-lg font-semibold text-green-600">Berhasil!</h2>
 				<p class="mb-4 text-gray-700">{feedbackMessage}</p>
 				<button
-					class="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
+					class="rounded bg-blue-500 px-4 py-2 text-gray-200 hover:bg-blue-600"
 					onclick={() => (showFeedbackModal = false)}
 				>
 					Oke
@@ -364,7 +364,7 @@
 										<button
 											type="button"
 											onclick={() => openEditModal(p)}
-											class="rounded bg-[#0443F2] px-2 py-2 text-white transition hover:bg-[#0433C2]"
+											class="rounded bg-[#0443F2] px-2 py-2 text-gray-200 transition hover:bg-[#0433C2]"
 										>
 											<Icon icon="mdi:pencil" width="18" height="18" />
 										</button>

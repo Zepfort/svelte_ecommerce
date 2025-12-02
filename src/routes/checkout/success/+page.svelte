@@ -86,7 +86,7 @@
     <!-- CTA -->
     <button
       onclick={() => goto('/')}
-      class="w-full rounded-sm bg-[#0443F2] px-4 py-3 text-white font-semibold shadow hover:bg-[#0433C2] focus:outline-none focus:ring-2 focus:ring-[#0443F2] focus:ring-offset-2 active:bg-[#032ea8]">
+      class="w-full rounded-sm bg-[#0443F2] px-4 py-3 text-gray-200 font-semibold shadow hover:bg-[#0433C2] focus:outline-none focus:ring-2 focus:ring-[#0443F2] focus:ring-offset-2 active:bg-[#032ea8]">
       Kembali ke Beranda
     </button>
 

@@ -95,7 +95,7 @@
 <!-- Mobile Only: Full Width Gradient Hero -->
  <div class="md:hidden min-w-full h-[220px] bg-gradient-to-r from-purple-600 via-pink-500 to-red-500">
    <div
-     class="relative h-[220px] bg-gradient-to-r from-purple-600 via-pink-500 to-red-500 flex items-center justify-center text-white overflow-hidden"
+     class="relative h-[220px] bg-gradient-to-r from-purple-600 via-pink-500 to-red-500 flex items-center justify-center text-gray-200 overflow-hidden"
    >
      <!-- Background image (blurred) -->
      <div

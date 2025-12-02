@@ -203,7 +203,7 @@
 				<button
 					type="button"
 					onclick={handleVoid}
-					class="rounded bg-rose-500 px-4 py-2 text-white hover:bg-red-700"
+					class="rounded bg-rose-500 px-4 py-2 text-gray-200 hover:bg-red-700"
 					disabled={isProcessing}
 				>
 					Batalkan (Void)

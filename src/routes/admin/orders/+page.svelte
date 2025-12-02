@@ -209,7 +209,7 @@
         <button class="bg-gray-200 text-gray-800 px-4 py-2 rounded hover:bg-gray-300" onclick={closeDeleteModal} disabled={isProcessing}>
           Batal
         </button>
-        <button class="bg-rose-600 text-white px-4 py-2 rounded hover:bg-rose-700" onclick={handleDeleteConfirmed} disabled={isProcessing}>
+        <button class="bg-rose-600 text-gray-200 px-4 py-2 rounded hover:bg-rose-700" onclick={handleDeleteConfirmed} disabled={isProcessing}>
           {#if isProcessing}
             <span class="inline-block animate-spin w-4 h-4 border-2 border-white border-t-transparent rounded-full mr-2"></span>
           {/if}
@@ -231,7 +231,7 @@
       </h2>
       <p class="text-gray-700 mb-4">{feedbackMessage}</p>
       <div class="flex justify-center">
-        <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600" onclick={() => (showFeedbackModal = false)}>
+        <button class="bg-blue-500 text-gray-200 px-4 py-2 rounded hover:bg-blue-600" onclick={() => (showFeedbackModal = false)}>
           Oke
         </button>
       </div>

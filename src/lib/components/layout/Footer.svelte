@@ -21,7 +21,7 @@
   ]
 </script>
 
-<footer class="w-full bg-gray-950 text-white">
+<footer class="w-full bg-gray-950 text-gray-200">
   <!-- MAIN FOOTER -->
   <div
     class="mx-auto grid max-w-7xl gap-8 px-6 py-10

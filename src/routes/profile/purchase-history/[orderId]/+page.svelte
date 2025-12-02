@@ -85,7 +85,7 @@
           <div class="mt-3">
             <a
               href={order.redirect_url}
-              class="inline-flex items-center rounded-md bg-amber-600 px-4 py-2 text-white hover:bg-amber-700"
+              class="inline-flex items-center rounded-md bg-amber-600 px-4 py-2 text-gray-200 hover:bg-amber-700"
             >
               Lanjutkan Pembayaran
             </a>

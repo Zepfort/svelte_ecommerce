@@ -216,7 +216,7 @@
 					</button>
 					<form method="POST" action="?/delete" use:enhance={handleDelete}>
 						<input type="hidden" name="id" value={selectedDeleteId ?? ''} />
-						<button type="submit" class="rounded bg-red-600 px-4 py-2 text-white hover:bg-red-700">
+						<button type="submit" class="rounded bg-red-600 px-4 py-2 text-gray-200 hover:bg-red-700">
 							Hapus
 						</button>
 					</form>
@@ -232,7 +232,7 @@
 				<h2 class="mb-2 text-lg font-semibold text-green-600">Berhasil!</h2>
 				<p class="mb-4 text-gray-700">{feedbackMessage}</p>
 				<button
-					class="rounded bg-blue-500 px-4 py-2 text-white hover:bg-blue-600"
+					class="rounded bg-blue-500 px-4 py-2 text-gray-200 hover:bg-blue-600"
 					onclick={() => (showFeedbackModal = false)}
 				>
 					Oke
@@ -269,13 +269,13 @@
 						<td class="space-x-2 px-4 py-2 text-center">
 							<button
 								onclick={() => handleEdit(c)}
-								class="rounded bg-[#0443F2] px-2 py-2 text-white hover:bg-[#0433C2]"
+								class="rounded bg-[#0443F2] px-2 py-2 text-gray-200 hover:bg-[#0433C2]"
 							>
 								<Icon icon="mdi:pencil" width="18" height="18" />
 							</button>
 							<button
 								onclick={() => confirmDelete(c)}
-								class="rounded bg-rose-500 px-2 py-2 text-white hover:bg-rose-600"
+								class="rounded bg-rose-500 px-2 py-2 text-gray-200 hover:bg-rose-600"
 							>
 								<Icon icon="mdi:trash-can" width="18" height="18" />
 							</button>

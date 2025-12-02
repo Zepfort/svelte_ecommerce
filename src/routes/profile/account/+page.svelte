@@ -138,7 +138,7 @@
 								<input type="text" class="hidden" />
 								<button
 									type="submit"
-									class="rounded-sm bg-red-500 px-4 py-1.5 text-white hover:bg-rose-600"
+									class="rounded-sm bg-red-500 px-4 py-1.5 text-gray-200 hover:bg-rose-600"
 								>
 									Hapus
 								</button>

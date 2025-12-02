@@ -93,7 +93,7 @@ function handleCheckout() {
   <button
   type="button"
   onclick={() => (open = !open)}
-  class="relative flex items-center rounded-sm bg-[#0443F2] p-2 text-white hover:bg-[#0433C2] md:gap-2 md:px-3"
+  class="relative flex items-center rounded-sm bg-[#0443F2] p-2 text-gray-200 hover:bg-[#0433C2] md:gap-2 md:px-3"
 >
   <Icon icon="icon-park-outline:shopping" width="24" height="24" />
 
@@ -162,7 +162,7 @@ function handleCheckout() {
                   <span class="w-6 text-center">{it.qty}</span>
                   <button onclick={() => inc(it.id)} class="font-semibold  h-7 w-7 bg-gray-200 border-l hover:bg-gray-300">+</button>
                 </div>
-                <button onclick={() => delItem(it.id)} class="ml-2 py-1 px-3 text-sm rounded-sm bg-red-500 text-white hover:bg-red-700 duration-150">Hapus</button>
+                <button onclick={() => delItem(it.id)} class="ml-2 py-1 px-3 text-sm rounded-sm bg-red-500 text-gray-200 hover:bg-red-700 duration-150">Hapus</button>
               </div>
             </li>
           {/each}

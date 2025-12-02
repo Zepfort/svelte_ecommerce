@@ -71,7 +71,7 @@
               <div class="flex items-center justify-between">
                 <div class="text-sm font-medium">{addr.label ?? 'Alamat'}</div>
                 {#if addr.is_default}
-                  <div class="text-xs px-2 py-0.5 rounded bg-green-600 text-white">Default</div>
+                  <div class="text-xs px-2 py-0.5 rounded bg-green-600 text-gray-200">Default</div>
                 {/if}
               </div>
               <div class="mt-1 text-xs text-gray-300">{addr.recipient} • {addr.phone}</div>

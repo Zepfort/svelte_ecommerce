@@ -20,10 +20,10 @@
 {#if userProfile}
   <div class="user-badge-group">
     <div class="user-info">
-      <div class="h-9 w-9 flex items-center justify-center rounded-full bg-indigo-700 text-white">
+      <div class="h-9 w-9 flex items-center justify-center rounded-full bg-indigo-700 text-gray-200">
         <Icon icon="material-symbols:person-outline" width="24" height="24" />
       </div>
-      <span class="text-sm text-white">
+      <span class="text-sm text-gray-200">
         {userProfile?.name}
       </span>
     </div>

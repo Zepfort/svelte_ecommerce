@@ -18,7 +18,7 @@
 
 <div class="flex min-h-screen w-full bg-gray-50 overflow-x-hidden">
 	<!-- Sidebar -->
-	<aside class="fixed inset-y-0 left-0 z-20 flex h-full w-72 flex-col bg-gray-950 text-white transform transition-transform duration-300 ease-in-out
+	<aside class="fixed inset-y-0 left-0 z-20 flex h-full w-72 flex-col bg-gray-950 text-gray-200 transform transition-transform duration-300 ease-in-out
 		       -translate-x-full md:translate-x-0 md:w-72">
 			   <h1 class="text-2xl font-bold text-gray-200 pt-12 pb-4 pl-6">Profile</h1>
 			   <nav class="flex-1 space-y-2 p-4">
