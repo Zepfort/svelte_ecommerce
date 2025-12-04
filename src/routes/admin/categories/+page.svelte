@@ -77,7 +77,7 @@
 			await update({ reset: false, invalidateAll: true });
 			showDeleteModal = false;
 			selectedDeleteId = null;
-			showModalFeedback(result.type === 'success' ? 'Kategori berhasilterhapus' : 'Gagal menghapus');
+			showModalFeedback(result.type === 'success' ? 'Kategori berhasil terhapus' : 'Gagal menghapus');
 		};
 </script>
 

@@ -1,7 +1,11 @@
 <script lang="ts">
   import Icon from "@iconify/svelte";
   import type { ProductListItem } from "$lib/types/product";
-  export let product: ProductListItem;
+    interface Props {
+    product: ProductListItem;
+  }
+  
+  let { product }: Props = $props();
 </script>
 
 <a

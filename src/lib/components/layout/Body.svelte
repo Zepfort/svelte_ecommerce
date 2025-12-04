@@ -4,7 +4,11 @@
 
 	import type { ProductListItem } from '$lib/types/product';
 
-	export let products: ProductListItem[];
+	interface Props {
+    products: ProductListItem[];
+  	}
+  
+  	let { products }: Props = $props();
 </script>
 
 <div class="w-full md:container flex flex-col items-center px-0 lg:px-16 xl:px-20">
