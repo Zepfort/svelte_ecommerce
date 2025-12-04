@@ -1,43 +1,19 @@
-<<<<<<< HEAD
-# sv
+# Deskripsi
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+Website E-Commerce untuk pemenuhan tugas Manajemen Sistem Informasi Semester 5.
 
-## Creating a project
+---
 
-If you're seeing this, you've probably already done this step. Congrats!
+# Tech Stack
 
-```sh
-# create a new project in the current directory
-npx sv create
+1. SvelteKit dengan Svelte 5 sebagai framework fullstack pengembangan website.
+2. Typescript sebagai bahasa utama.
+3. Supabase sebagai database dan backend.
 
-# create a new project in my-app
-npx sv create my-app
-```
 
-## Developing
+---
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+# Manual Book
 
-```sh
-npm run dev
+- [Manual Book](https://drive.google.com/file/d/1FuQXaMcHhs-UMFa4JlBkN7oQiglkKzpw/view?usp=sharing)
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```sh
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
-=======
-# e-commerce
-Tugas Manajemen Sistem Informasi Semester 5
->>>>>>> c2f2e38f61f4a3346af980de9db8d0daf41d5835
